@@ -1,0 +1,146 @@
+﻿@model DishUp.RECIPE
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RECIPE</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.YIELD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YIELD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PORTION_SIZE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PORTION_SIZE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PORTION_NUMBER)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PORTION_NUMBER)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PRICE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PRICE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PREP_TIME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PREP_TIME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COOK_TIME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COOK_TIME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SHELF_LIFE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SHELF_LIFE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IMAGEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IMAGEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTIVE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTIVE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MEDIDA.NOMBRE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MEDIDA.NOMBRE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MEDIDA1.NOMBRE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MEDIDA1.NOMBRE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CATEGORY.ID_CATEGORY)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CATEGORY.ID_CATEGORY)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CATEGORY1.ID_CATEGORY)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CATEGORY1.ID_CATEGORY)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CATEGORY2.ID_CATEGORY)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CATEGORY2.ID_CATEGORY)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CATEGORY3.ID_CATEGORY)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CATEGORY3.ID_CATEGORY)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_RECIPE }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

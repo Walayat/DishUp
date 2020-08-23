@@ -1,0 +1,278 @@
+﻿@model DishUp.Models.CateringViewModel
+
+@{
+    ViewBag.Title = "Edit Catering";
+}
+<div class="row">
+    <div class="col-md-6" style="float:left;">
+        <h2>@Html.ActionLink("Back to Catering List", "Index", "", new { @class = "btn btn-lg btn-default" })</h2>
+
+    </div>
+    <div class="col-md-6" style="float:right;">
+    </div>
+</div>
+
+<ul class="nav nav-pills nav-justified " style="padding-top:30px;">
+    <li class="active"><a data-toggle="tab" href="#home">Catering Info</a></li>
+    <li><a data-toggle="tab" href="#menu1">Supplies</a></li>
+    <li><a data-toggle="tab" href="#menu2">Packaging</a></li>
+</ul>
+
+<hr />
+<div class="tab-content">
+
+    @using (Ajax.BeginForm("AddCateringSupplie", "CATERING", new AjaxOptions
+    {
+        UpdateTargetId = "orderList",
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        OnSuccess = "ClearCateringSupplie"
+
+    }, new { @class = "form-horizontal" }))
+    {
+        @Html.Hidden("tipo",1)
+        @Html.HiddenFor(x => x.ID_CATERING)
+    <div class="row">
+        @Html.DropDownList("INSUMO",null,"Select Supplie",new { @class="form-control" })
+        @Html.TextBox("QUANT_SUPPLIE",null,new { @class="form-control" })
+    </div>
+        <div class="form-group">
+
+            <button id="ff" type="submit" name="ff" class="btn btn-success">Aceptar</button>
+            <button id="button2id" name="button2id" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
+
+        </div>
+
+    }
+
+    @using (Ajax.BeginForm("AddCateringProducto", "CATERING", new AjaxOptions
+    {
+        UpdateTargetId = "orderList",
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        OnSuccess = "ClearCateringProducto"
+
+    }, new { @class = "form-horizontal" }))
+    {
+        @Html.HiddenFor(x => x.ID_CATERING)
+
+        <div class="row">
+            @Html.DropDownList("PRODUCTO",null,"Select Product",new { @class="form-control" }))
+            @Html.TextBox("QUANT_PRODUCTO",null,new { @class="form-control" })
+        </div>
+        <div class="form-group">
+
+            <button id="ff" type="submit" name="ff" class="btn btn-success">Aceptar</button>
+            <button id="button2id" name="button2id" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
+
+        </div>
+
+    }
+
+    @using (Ajax.BeginForm("AddCateringMenu", "CATERING", new AjaxOptions
+    {
+
+        UpdateTargetId = "orderList",
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        OnSuccess = "ClearCateringMenu"
+
+    }, new { @class = "form-horizontal" }))
+    {
+        @Html.HiddenFor(x=>x.ID_CATERING)
+
+        <div class="row">
+            @Html.DropDownList("ID_MENU",null,"Select Package",new { @class="form-control" })
+            @Html.TextBox("QUANT_MENU",null,new { @class="form-control" })
+        </div>
+        <div class="form-group">
+
+            <button id="ff" type="submit" name="ff" class="btn btn-success">Aceptar</button>
+            <button id="button2id" name="button2id" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
+
+        </div>
+
+    }
+
+    <div id="orderList">
+        @Html.Action("GetCateringCostView","CATERING",new { ID_CATERING=Model.ID_CATERING})
+    </div>
+    <div id="home" class="tab-pane fade in active">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.ID_CATERING)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ID_CLIENT, "Client Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownList("ID_CLIENT", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ID_CLIENT, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.ID_MENU, "Menu", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownList("ID_MENU", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ID_MENU, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AMOUNT_PEOPLE, "Amount of People:", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.AMOUNT_PEOPLE, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AMOUNT_PEOPLE, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.ADDRESS, "Address", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.ADDRESS, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+                        @Html.ValidationMessageFor(model => model.ADDRESS, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EVENT_DATE, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+
+                        @Html.EditorFor(model => model.EVENT_DATE, "{0:yyyy-MM-ddThh:mm:ss}", new { htmlAttributes = new { @class = "form -control datetime-local", @type = "date" } })
+                        @Html.ValidationMessageFor(model => model.EVENT_DATE, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.EVENT_TIME, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+
+                        @Html.EditorFor(model => model.EVENT_TIME, new { htmlAttributes = new { @class = "form -control" } })
+                        @Html.ValidationMessageFor(model => model.EVENT_TIME, "", new { @class = "text-danger" })
+                    </div>
+
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DEPARTURE_TIME, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+
+                        @Html.EditorFor(model => model.DEPARTURE_TIME, new { htmlAttributes = new { @class = "form -control" } })
+                        @Html.ValidationMessageFor(model => model.DEPARTURE_TIME, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.ARRIVAL_TIME, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+
+                        @Html.EditorFor(model => model.ARRIVAL_TIME, new { htmlAttributes = new { @class = "form -control" } })
+                        @Html.ValidationMessageFor(model => model.ARRIVAL_TIME, "", new { @class = "text-danger" })
+                    </div>
+
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NOTES, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NOTES, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NOTES, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div id="menu1" class="tab-pane fade">
+        @Html.Action("GetInsumos", Model.ID_CATERING)
+    </div>
+    <div id="menu2" class="tab-pane fade">
+        @Html.Action("GetPackaging", Model.ID_CATERING)
+    </div>
+</div>
+
+<div>
+</div>
+
+@Html.Hidden("urlMenu", Url.Action("GetMenu", "Catering"))
+@Html.Hidden("urlClient", Url.Action("GetClient", "Catering"))
+<div class="modal fade" tabindex="-1" id="modalInsumo" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Supplie</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div id="supplieDetail"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="newModalSupplie" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Supplie</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div id="formuSupplie">
+                        @Html.Action("NewSupplie", "CATERING", new { id = Model.ID_CATERING })
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="newModalPackaging" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Packaging</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div id="formuSupplie">
+                        @Html.Action("NewPackaging", "CATERING", new { id = Model.ID_CATERING })
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script>
+
+        function ClearSupplie() {
+
+            //$('#ID_INSUMO').val('');
+            $('#modalInsumo').modal('hide');
+            $('#newModalSupplie').modal('hide');
+            $('#newModalPackaging').modal('hide');
+            //           $('#newModalSupplie').find('input,textarea').val('');
+
+        }
+        $(".iconEdit").prepend("<span class=\"glyphicon glyphicon-pencil\"></span>&nbsp;");
+        $(".iconDelete").prepend("<span class=\"glyphicon glyphicon-remove\"></span>&nbsp;");
+    </script>
+}
+
+<script src="~/Scripts/Catering.js"></script>

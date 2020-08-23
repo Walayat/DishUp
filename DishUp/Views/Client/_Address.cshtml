@@ -1,0 +1,52 @@
+﻿@model CLIENT_ADDRESS
+
+<div class="form-horizontal">
+    <div class="form-group">
+        @Html.LabelFor(model => model.ID_CLIENT, "Client:", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DropDownList("ID_CLIENT", null, "Select Client", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ID_CLIENT, "", new { @class = "text-danger" })
+
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ADDRESS.STREET, "Street:", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(m => m.ADDRESS.STREET)
+
+            @Html.ValidationMessageFor(model => model.ADDRESS.STREET, "", new { @class = "text-danger" })
+
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ADDRESS.NUMBER, "Number:", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(m => m.ADDRESS.NUMBER)
+
+            @Html.ValidationMessageFor(model => model.ADDRESS.NUMBER, "", new { @class = "text-danger" })
+
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ADDRESS.APARTMENT, "Apartment:", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(m => m.ADDRESS.APARTMENT)
+
+            @Html.ValidationMessageFor(model => model.ADDRESS.APARTMENT, "", new { @class = "text-danger" })
+
+        </div>
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ADDRESS.POSTCODE, "Apartment:", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(m => m.ADDRESS.POSTCODE)
+
+            @Html.ValidationMessageFor(model => model.ADDRESS.POSTCODE, "", new { @class = "text-danger" })
+
+        </div>
+
+    </div>
+
+
+</div>

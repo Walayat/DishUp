@@ -1,0 +1,70 @@
+﻿@model DishUp.Models.ProfitCalculator
+
+
+
+@using (Ajax.BeginForm("GetProfit", "Product", new AjaxOptions
+{
+    UpdateTargetId = "profitResult",
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+
+}, new { @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(x => x.ID_PRODUCTO)
+    <div class="form-group">
+        <div class="row" style="display:none;">
+            @Html.LabelFor(model => model.ID_PRODUCTO, "Product: ", htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.DropDownList("ID_INSUMO", null, "Select a Product", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ID_PRODUCTO, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <br />
+
+        <div class="row">
+            @Html.Label("Profit %", htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.profitpercentaje,  new {placeholder="Insert Quantity", @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-lg-offset-4" style="padding-left:35px;">
+                <button id="ff" name="ff" class="btn btn-success">Aceptar</button>
+                <button id="button2id" name="button2id" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
+
+            </div>
+        </div>
+
+    </div>
+
+}
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+            $('#ID_INSUMO').change(function () {
+                var selectdSupplie = $("#ID_INSUMO").val();
+                var regionsSelect = $('#ID_MEDIDA');
+                regionsSelect.empty();
+                if (selectedCountry != null && selectedCountry != '') {
+                    $.getJSON('@Url.Action("GetMedidas")', { id: selectdSupplie }, function (regions) {
+                        if (regions != null && !jQuery.isEmptyObject(regions))
+                        {
+                            regionsSelect.append($('<option/>', {
+                                value: null,
+                                text: ""
+                            }));
+                            $.each(regions, function (index, region) {
+                                regionsSelect.append($('<option/>', {
+                                    value: region.Value,
+                                    text: region.Text
+                                }));
+                            });
+                        };
+                    });
+                }
+            });
+    </script>
+}

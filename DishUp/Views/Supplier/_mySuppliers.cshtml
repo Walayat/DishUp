@@ -1,0 +1,68 @@
+﻿
+@model IEnumerable<DishUp.USER_SUPPLIER>
+<script src="~/Scripts/Supplier.js"></script>
+@{ 
+    Layout = "";
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SURNAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MOBILE_NUMBER)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.EMAIL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OPEN_HOURS)
+        </th>
+   
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SURNAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MOBILE_NUMBER)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.EMAIL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OPEN_HOURS)
+            </td>
+         
+
+            <td>
+                <a href="@Url.Action("Edit", "Supplier",new { id = item.ID_SUPPLIER })" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    Edit
+                </a>
+             
+                <a href="#" onclick="ImportSuppliesFromSupplier(@item.ID_SUPPLIER)" class="btn btn-info">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    Import products from Supplier
+                </a>
+                <a href="@Url.Action("Delete", "Catering",new { id = item.ID_SUPPLIER })" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    Delete
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>

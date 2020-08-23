@@ -1,0 +1,38 @@
+﻿@model DishUp.SUPPLIER_SUPPLIE
+
+@using (Ajax.BeginForm("AddSupplie", "PRODUCT", new { id = Model.ID_PRODUCTO }, new AjaxOptions
+{
+    UpdateTargetId = "supplieList",
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    OnSuccess = "$('#myModals').modal('hide');"
+
+}, new { @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(o => o.ID_PRODUCTO)
+
+    @Html.HiddenFor(model => model.ID_PRODUCTO)
+    <div class="form-group">
+        @Html.LabelFor(model => model.ID_INSUMO, "Supplie: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DropDownList("ID_INSUMO", null, "Select a supplie", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ID_INSUMO, "", new { @class = "text-danger" })
+
+        </div>
+        @Html.LabelFor(model => model.quantity, "Quantity", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.quantity, "Insert Quantity", new { @class = "form-control" })
+        </div>
+        @*<div class="col-md-4">
+                <div id="btnNewclient" class="btn  btn-primary ">New Client</div>
+
+            </div>*@
+    </div>
+    <div class="form-group">
+
+        <button id="ff" type="submit" name="ff" class="btn btn-success">Aceptar</button>
+        <button id="button2id" name="button2id" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
+
+    </div>
+}
+

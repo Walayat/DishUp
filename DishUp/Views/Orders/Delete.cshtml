@@ -1,0 +1,64 @@
+﻿@model DishUp.ORDER
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ORDER1</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ORDER_DATE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ORDER_DATE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DELIVERED)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DELIVERED)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IS_DRAFT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IS_DRAFT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTIVE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTIVE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SUPPLIER.NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SUPPLIER.NAME)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

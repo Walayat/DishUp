@@ -1,0 +1,81 @@
+﻿@model IEnumerable<DishUp.CLIENT>
+
+@{
+    ViewBag.Title = "Index";
+
+}
+
+
+<h2>
+    @Html.ActionLink("Add Client", "Create", "", new { @class = "btn btn-lg btn-success" })
+</h2>
+<table class="table" id="clientTable">
+    <thead>
+        <tr>
+            <th>
+                NAME
+            </th>
+            <th>
+                LAST NAME
+            </th>
+            <th>
+                HOME NUMBER
+            </th>
+            <th>
+                MOBILE NUMBER
+            </th>
+            <th>
+                EMAIL
+            </th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NAME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SURNAME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HOME_NUMBER)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MOBILE_NUMBER)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EMAIL)
+                </td>
+
+
+                <td>
+
+                    <a href="@Url.Action("Edit", "Client",new { id = item.ID_CLIENT })" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        Edit
+                    </a>
+                    <a href="@Url.Action("Delete", "Client",new { id = item.ID_CLIENT })" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        Delete
+                    </a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+<!-- #region datatables files -->
+<!-- #endregion -->
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#clientTable').DataTable();
+        });
+    </script>
+
+}

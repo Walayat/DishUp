@@ -1,0 +1,49 @@
+﻿
+@model  List<CAT_INS_PACK>
+
+<div data-toggle="modal" data-target="#newModalPackaging" class="btn btn-lg btn-success">Add Packaging</div>
+
+@if (Model.Count > 0)
+{
+
+    @Html.HiddenFor(x => x.First().ID_CATERING)
+    <table class="table" cellpadding="10" id="listaPackaging" data-paging="true" data-filtering="true" data-sorting="true" data-state="true">
+        <thead class="thead-dark">
+
+            <tr>
+                <th>Supplie</th>
+                <th>Packaging</th>
+                <th>quantity</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @item.INSUMO.NOMBRE
+        </td>
+        <td>
+            @item.PACKAGING.NAME
+        </td>
+        <td>@item.QUANTITY</td>
+        <td>
+            @Ajax.ActionLink("Edit ", "EditPackaging", "CATERING", new { id = item.ID_CAT_INS_PACK }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "supplieDetail", OnSuccess = "$('#modalInsumo').modal();" }, new { @class = "btn btn-primary iconEdit" })
+
+            @Ajax.ActionLink("Delete", "DeleteCateringPackaging", "CATERING", new { id = item.ID_CAT_INS_PACK, ID_CATERING = item.ID_CATERING }, new AjaxOptions { Confirm = "Are you sure you want to delete this item?", HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "menu2" }, new { @class = "btn btn-danger iconDelete" })
+
+</tr>
+        }
+        @*<tr>
+                <td colspan="2">
+                    <div id="btnNotificar" data-toggle="modal" data-target="#myModals" class="btn btn-lg btn-success">Email it</div>
+                </td>
+            </tr>*@
+
+
+    </table>
+
+    @*Html.Action("PackagingPending",new { id = Model.First().ID_CATERING })*@
+}
+

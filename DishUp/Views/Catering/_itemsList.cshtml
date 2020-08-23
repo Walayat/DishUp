@@ -1,0 +1,94 @@
+﻿@model DishUp.Models.TempOrderViewModel
+<H2>Packages</H2>
+
+<table class="table">
+    <tr>
+        <th>Name  </th>
+        <th>Quantity </th>
+        <th>Individual Cost</th>
+        <th>Total Cost</th>
+    </tr>
+
+    @foreach (var it in Model.listaMenu)
+    {
+        var x = Convert.ToDouble(@it.MENU.COST) * @it.QUANTITY;
+        <tr>
+            <td>@it.MENU.NOMBRE</td>
+            <td>@it.QUANTITY</td>
+            <td>@it.MENU.COST</td>
+            <td>@x</td>
+
+        </tr>
+
+    }
+    <tr>
+        <td></td>
+        <td></td>
+        <td>Sub Total:</td>
+        <td>@Model.costoMenu</td>
+    </tr>
+</table>
+
+<H2>Products</H2>
+
+<table class="table">
+    <tr>
+        <th>Name  </th>
+        <th>Quantity </th>
+        <th>Individual Cost</th>
+        <th>Total Cost</th>
+    </tr>
+
+    @foreach (var it in Model.listaProductos)
+    {
+        var x = Convert.ToDouble(@it.PRODUCTO.WHOLESALE_PRICE) * @it.QUANTITY;
+        <tr>
+            <td>@it.PRODUCTO.NOMBRE</td>
+            <td>@it.QUANTITY</td>
+            <td>@it.PRODUCTO.WHOLESALE_PRICE</td>
+            <td>@x</td>
+
+        </tr>
+
+    }
+    <tr>
+        <td></td>
+        <td></td>
+        <td>Sub Total:</td>
+        <td>@Model.costoProducto</td>
+    </tr>
+</table>
+<H2>Supplies</H2>
+
+
+<table class="table">
+    <tr>
+        <th>Name  </th>
+        <th>Quantity </th>
+        <th>Individual Cost</th>
+        <th>Total Cost</th>
+    </tr>
+
+    @foreach (var it in Model.listaInsumos)
+    {
+        var x = Convert.ToDouble(@it.INSUMO.WHOLESALE_PRICE) * @it.QUANTITY;
+        <tr>
+            <td>@it.INSUMO.NOMBRE</td>
+            <td>@it.QUANTITY</td>
+            <td>@it.INSUMO.WHOLESALE_PRICE</td>
+            <td>@x</td>
+
+        </tr>
+
+    }
+    <tr>
+        <td></td>
+        <td></td>
+        <td>Sub Total:</td>
+        <td>@Model.costoSupplie</td>
+    </tr>
+</table>
+
+<h1>
+    Catering Cost: @Model.totalPackageCost
+</h1>

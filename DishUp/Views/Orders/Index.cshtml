@@ -1,0 +1,76 @@
+﻿@model IEnumerable<DishUp.ORDER>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New Order", "Create")
+</p>
+<table class="table" id="orderTable" data-paging="true" data-filtering="true" data-sorting="true" data-state="true">
+
+    <thead>
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ORDER_DATE)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.SUPPLIER.NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DELIVERED)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IS_DRAFT)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ORDER_DATE)
+                </td>  
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.SUPPLIER.NAME)
+                </td>
+                <td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DELIVERED)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IS_DRAFT)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "Orders",new { id = item.ID_ORDER })" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        Edit
+                    </a>
+                    <a href="@Url.Action("Delete", "Orders",new { id = item.ID_ORDER })" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        Delete
+                    </a>
+                </td>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#orderTable').DataTable();
+        });
+    </script>
+
+}

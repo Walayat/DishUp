@@ -1,0 +1,159 @@
+﻿@model DishUp.RECIPE
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Create a new Recipe</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.NAME, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.NAME, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NAME, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.Label("Category", new { @class = "control-label" })
+                @*@Html.LabelFor(model => model.ID_CATEGORY, "ID_CATEGORY", htmlAttributes: new { @class = "control-label" })*@
+                @Html.DropDownList("ID_CATEGORY", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ID_CATEGORY, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.Label("Yield", new { @class = "control-label" })
+                @Html.EditorFor(model => model.YIELD, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.YIELD, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.Label("Yield Unit", new { @class = "control-label" })
+
+                @Html.DropDownList("ID_MEDIDA_YIELD", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ID_MEDIDA_YIELD, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.Label("Preparation Time", new { @class = "control-label " })
+                @Html.EditorFor(model => model.PREP_TIME, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PREP_TIME, "", new { @class = "text-danger" })
+            </div>
+
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.Label("Unit Time", new { @class = "control-label " })
+                @Html.DropDownList("ID_PREP_TIME", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ID_PREP_TIME, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.Label("Cook Time", new { @class = "control-label" })
+                @Html.EditorFor(model => model.COOK_TIME, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.COOK_TIME, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.Label("Unit Time", new { @class = "control-label" })
+                @Html.DropDownList("ID_COOK_TIME", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ID_COOK_TIME, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.Label("Shelf Time", new { @class = "control-label" })
+                @Html.EditorFor(model => model.SHELF_LIFE, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SHELF_LIFE, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.Label("Unit Time", new { @class = "control-label" })
+                @Html.DropDownList("ID_SHELF_TIME", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ID_SHELF_TIME, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.Label("Portion Size", new { @class = "control-label" })
+                @Html.EditorFor(model => model.PORTION_SIZE, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PORTION_SIZE, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.Label("Unit", new { @class = "control-label" })
+                @Html.DropDownList("ID_MEDIDA_PORTION", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ID_MEDIDA_PORTION, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.PORTION_NUMBER, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.PORTION_NUMBER, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PORTION_NUMBER, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.PRICE, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.PRICE, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PRICE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

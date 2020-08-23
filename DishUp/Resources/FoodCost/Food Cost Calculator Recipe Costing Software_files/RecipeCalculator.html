@@ -1,0 +1,314 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Recipe Costing</title>
+    <script src="RecipeCalculator_data/jquery.js"></script>
+    <link rel="stylesheet" href="RecipeCalculator_data/bootstrap.css">
+
+    <script src="RecipeCalculator_data/RecipeCalculator.js"></script>
+    <script src="RecipeCalculator_data/convert2.js"></script>
+    <style>
+        th, td {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        label {
+            display: inline-block;
+            max-width: 100%;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .a1 {
+            height: 23px;
+        }
+
+        .a2 {
+            height: 18px;
+        }
+
+        .subrec {
+            width: 65% !important;
+        }
+
+        .vendor {
+            width: 90% !important;
+        }
+
+        .recipe {
+            width: 90% !important;
+        }
+
+        .recipeinfo {
+            width: 48% !important;
+        }
+
+        .staff {
+            width: 90% !important;
+        }
+
+        .form-control-text {
+            display: block;
+            width: 100%;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        }
+
+            .form-control-text:focus {
+                border-color: #66afe9;
+                outline: 0;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+            }
+
+            .form-control-text::-moz-placeholder {
+                color: #999;
+                opacity: 1;
+            }
+
+            .form-control-text:-ms-input-placeholder {
+                color: #999;
+            }
+
+            .form-control-text::-webkit-input-placeholder {
+                color: #999;
+            }
+
+            .form-control-text[disabled],
+            .form-control-text[readonly],
+            fieldset[disabled] .form-control-text {
+                cursor: not-allowed;
+                background-color: #eee;
+                opacity: 1;
+            }
+
+        textarea.form-control-text {
+            height: auto;
+        }
+
+        input[type="search"] {
+            -webkit-appearance: none;
+        }
+
+
+        .md-btn {
+            background: #fff;
+            border: none;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);
+            min-height: 31px;
+            min-width: 70px;
+            padding: 2px 16px;
+            text-align: center;
+            text-shadow: none;
+            text-transform: uppercase;
+            -webkit-transition: all 280ms cubic-bezier(.4,0,.2,1);
+            transition: all 280ms cubic-bezier(.4,0,.2,1);
+            color: #212121;
+            box-sizing: border-box;
+            cursor: pointer;
+            -webkit-appearance: none;
+            display: inline-block;
+            vertical-align: middle;
+            font: 500 14px/31px Roboto,sans-serif;
+        }
+
+        .md-btn-primary, .md-btn-primary:active, .md-btn-primary:focus, .md-btn-primary:hover {
+            background: #2196f3;
+            color: #fff;
+        }
+
+        .md-btn-danger, .md-btn-danger:active, .md-btn-danger:focus, .md-btn-danger:hover {
+            background: #e53935;
+            color: #fff;
+        }
+                
+
+
+        .uk-text-danger {
+            color: #e53935!important;
+        }
+
+        .uk-text-primary {
+            color: #2196f3!important;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading_image" style="display: none; height: 100%; width: 100%; background-color: rgba(226, 218, 218, 0.30); top: 0px; position: fixed; z-index: 199999;">
+        <div class="md-preloader" style="position: fixed; left: 50%; top: 40%;">
+            <img src="RecipeCalculator_data/ripple.gif">
+        </div>
+    </div>
+    
+    <div style="margin-left: 5px; margin-right: 5px;" id="dvPrt">
+        <div class="panel panel-default">
+    <div class="panel-body">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <div class="row">
+                            <div class="col-sm-3" style="margin-top: 8px">
+                                <span>Price : </span>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="row">
+                                    <div class="col-sm-1" style="margin-top: 8px">$</div>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="txtPrice" onchange="Calculate();" name="txtPrice" class="form-control-text number" style="margin-left: -16px">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <span><b>Recipe Cost : </b></span>
+                            </div>
+                            <div class="col-sm-4">
+                                $<span class="uk-text-muted uk-text-medium" id="lblRecipeCost">0.00</span>
+                                <input type="hidden" id="hdnRecipeCost">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <span>Gross Profit : </span>
+                            </div>
+                            <div class="col-sm-4">
+                                $<span class="uk-text-muted uk-text-medium" id="lblGrossProfit">0.00</span>
+                                <input type="hidden" id="hdnGrossProfit">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <span>Percentage Gross Profit : </span>
+                            </div>
+                            <div class="col-sm-4">
+                                <span class="uk-text-muted uk-text-medium" id="lblGrossProfitPer">0.00</span>%                       
+                            
+                                        <input type="hidden" id="hdnGrossProfitPer">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <span>Food Cost Percentage : </span>
+                            </div>
+                            <div class="col-sm-4">
+                                <span class="uk-text-muted uk-text-medium" id="lblFoodCostPer">0.00</span>%                        
+                            
+                                        <input type="hidden" id="hdnFoodCostPer">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <input type="button" value="Reset" name="Reset" class="md-btn md-btn-primary show-page-loading-msg" onclick="ResetPage();">
+                                <input type="button" style="display:none;" value="Calculate" name="Calculate" class="md-btn md-btn-primary show-page-loading-msg" onclick="Calculate();">
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <table class="display" id="tblItem" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th style="width: 8%;">Item Name</th>
+                                <th class="" style="width: 8%; text-align: right">Quantity</th>
+                                <th style="width: 8%; text-align: left">Portioned By</th>
+                                <th class="" style="width: 8%; text-align: right">Wgt/Pkg</th>
+                                <th style="width: 8%; text-align: left;">Purchase Unit</th>
+                                <th style="width: 8%; text-align: right">Total Portions</th>
+                                <th style="width: 8%; text-align: right">Purchase Price</th>
+                                <th style="width: 8%; text-align: right">Yield</th>
+                                <th style="width: 8%; text-align: right">Yield Portions</th>
+                                <th style="width: 7%; text-align: right">Unit Cost</th>
+                                <th style="width: 7%; text-align: right">Cost</th>
+                                <th style="width: 7%; text-align: right">Cost%</th>
+                                <th style="width: 7%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr id="footerTr">
+                                <td>
+                                    <input type="text" id="txtItemName" name="txtItemName" class="form-control-text"></td>
+                                <td>
+                                    <input type="text" id="txtQty" value="0.00" style="text-align: right; float: right" onchange="CalculateCost();" onblur="CalculateCost();" name="txtQty" class="form-control-text number"></td>
+                                <td align="center">
+                                    <select name="drpPortionedby" onchange="CalculateTotalPortion();" onblur="CalculateTotalPortion();" id="drpPortionedby" style="width: 100px; float: left;" class="form-control">
+
+<option value="0" selected="selected">--select--</option>                                            <option unittype="Volume" unitid="1" value="0.00454609*31.5">barrel [UK, wine]</option>                                            <option unittype="Volume" unitid="2" value="0.00454609*36">barrel [UK]</option>                                            <option unittype="Volume" unitid="3" value="(0.000016387064)*7056">barrel [US, dry]</option>                                            <option unittype="Volume" unitid="4" value="(0.000016387064*231)*31">barrel [US, federal]</option>                                            <option unittype="Volume" unitid="5" value="(0.000016387064*231)*31.5">barrel [US, liquid]</option>                                            <option unittype="Volume" unitid="6" value="0.00454609*4">bucket [UK]</option>                                            <option unittype="Volume" unitid="7" value="(0.000016387064*231)*5">bucket [US]</option>                                            <option unittype="Volume" unitid="8" value="0.00454609*8">bushel [UK]</option>                                            <option unittype="Volume" unitid="9" value="0.0044048838*8">bushel [US, dry]</option>                                            <option unittype="Volume" unitid="67" value="0.00001">centigram</option>                                            <option unittype="Volume" unitid="10" value="0.00001">centiliter</option>                                            <option unittype="Volume" unitid="11" value="(((0.000016387064*231)/128)/6)/2">coffee spoon</option>                                            <option unittype="Volume" unitid="12" value="0.000001">cubic centimeter</option>                                            <option unittype="Volume" unitid="13" value="0.001">cubic decimeter</option>                                            <option unittype="Volume" unitid="14" value="0.00454609*0.05">cup [Canada]</option>                                            <option unittype="Volume" unitid="15" value="0.00025">cup [metric]</option>                                            <option unittype="Volume" unitid="16" value="(0.000016387064*231)/16">cup [US,Liquid]</option>                                            <option unittype="Weight" unitid="91" value="0.22">Cup US[soy bean oil]</option>                                            <option unittype="Weight" unitid="119" value="0.12500000">Cup[All Purpose Flour]</option>                                            <option unittype="Weight" unitid="105" value="0.108">Cup[Almonds, slivered]</option>                                            <option unittype="Weight" unitid="110" value="0.071">Cup[Broccoli, flowerets]</option>                                            <option unittype="Weight" unitid="100" value="0.220">Cup[Brown sugar]</option>                                            <option unittype="Weight" unitid="104" value="0.227">Cup[Butter]</option>                                            <option unittype="Weight" unitid="116" value="0.125">Cup[Cocoa]</option>                                            <option unittype="Weight" unitid="115" value="0.110">Cup[Confectioners sugar]</option>                                            <option unittype="Weight" unitid="99" value="0.200">Cup[Granulated sugar]</option>                                            <option unittype="Weight" unitid="107" value="0.322">Cup[Maple syrup]</option>                                            <option unittype="Weight" unitid="112" value="0.068 ">Cup[Milk, dry]</option>                                            <option unittype="Weight" unitid="108" value="0.245">Cup[Milk, non-fat]</option>                                            <option unittype="Weight" unitid="109" value="0.306">Cup[Milk, sweetened condensed]</option>                                            <option unittype="Weight" unitid="106" value="0.224">Cup[Oil]</option>                                            <option unittype="Weight" unitid="111" value="0.165">Cup[Raisins]</option>                                            <option unittype="Weight" unitid="101" value="0.125">Cup[Sifted white flour]</option>                                            <option unittype="Weight" unitid="121" value="0.1270000">Cup[US]</option>                                            <option unittype="Weight" unitid="114" value="0.236">Cup[Water]</option>                                            <option unittype="Weight" unitid="103" value="0.175">Cup[White rice, cooked]</option>                                            <option unittype="Weight" unitid="102" value="0.185 ">Cup[White rice, uncooked]</option>                                            <option unittype="Weight" unitid="113" value="0.245">Cup[Yogurt]</option>                                            <option unittype="Volume" unitid="17" value="(((0.000016387064*231)/128)/6)/8">dash</option>                                            <option unittype="Weight" unitid="68" value="0.0001">decigram</option>                                            <option unittype="Volume" unitid="18" value="0.0001">deciliter</option>                                            <option unittype="Weight" unitid="69" value="0.01">dekagram</option>                                            <option unittype="Volume" unitid="19" value="0.01">dekaliter</option>                                            <option unittype="Volume" unitid="20" value="0.00025">demi</option>                                            <option unittype="Volume" unitid="21" value="((0.000016387064*231)/128)/8">dram</option>                                            <option unittype="Weight" unitid="70" value="0.45359237/256">dram</option>                                            <option unittype="Volume" unitid="22" value="((0.000016387064*231)/128)/576">drop</option>                                            <option unittype="each" unitid="90" value="1">each</option>                                            <option unittype="Volume" unitid="23" value="(0.000016387064*231)/5">fifth</option>                                            <option unittype="Volume" unitid="24" value="0.00454609">gallon [UK]</option>                                            <option unittype="Volume" unitid="25" value="0.0044048838">gallon [US, dry]</option>                                            <option unittype="Volume" unitid="26" value="0.000016387064*231">gallon [US, liquid]</option>                                            <option unittype="Volume" unitid="27" value="0.00454609/32">gill [UK]</option>                                            <option unittype="Volume" unitid="28" value="(0.000016387064*231)/32">gill [US]</option>                                            <option unittype="Weight" unitid="71" value="0.00006479891">grain</option>                                            <option unittype="Weight" unitid="72" value="0.001">gram</option>                                            <option unittype="Weight" unitid="95" value="0.035">Heaped tblspn of butter</option>                                            <option unittype="Weight" unitid="93" value="0.021">Heaped tblspn of castor sugar</option>                                            <option unittype="Weight" unitid="96" value="0.014">Heaped tblspn of cornflour</option>                                            <option unittype="Weight" unitid="94" value="0.028">Heaped tblspn of flour</option>                                            <option unittype="Weight" unitid="97" value="0.021">heaped tblspn of gelatin</option>                                            <option unittype="Weight" unitid="73" value="0.1">hectogram</option>                                            <option unittype="Volume" unitid="29" value="0.1">hectoliter</option>                                            <option unittype="Volume" unitid="30" value="0.00454609*63">hogshead [UK]</option>                                            <option unittype="Volume" unitid="31" value="(0.000016387064*231)*63">hogshead [US]</option>                                            <option unittype="Weight" unitid="74" value="0.45359237*112">hundredWeight [long, UK]</option>                                            <option unittype="Weight" unitid="75" value="0.45359237*100">hundredWeight [short, US]</option>                                            <option unittype="Volume" unitid="32" value="((0.000016387064*231)/128)*1.5">jigger</option>                                            <option unittype="Weight" unitid="76" value="1">kilogram</option>                                            <option unittype="Volume" unitid="33" value="1">kiloliter</option>                                            <option unittype="Weight" unitid="77" value="0.45359237">lb, lbs</option>                                            <option unittype="Weight" unitid="98" value="0.028">level tblspn of sugar</option>                                            <option unittype="Volume" unitid="34" value="0.001">liter</option>                                            <option unittype="Weight" unitid="78" value="0.45359237*2240">long ton</option>                                            <option unittype="Volume" unitid="35" value="0.0077">measure [ancient hebrew]</option>                                            <option unittype="Weight" unitid="79" value="1000">megagram</option>                                            <option unittype="Volume" unitid="36" value="1000">megaliter</option>                                            <option unittype="Weight" unitid="80" value="1000">metric ton</option>                                            <option unittype="Weight" unitid="81" value="1.0e-9">microgram</option>                                            <option unittype="Volume" unitid="37" value="1.0e-9">microliter</option>                                            <option unittype="Weight" unitid="82" value="0.000001">milligram</option>                                            <option unittype="Volume" unitid="38" value="0.000001">milliliter</option>                                            <option unittype="Volume" unitid="39" value="(0.00454609/160)/480">minim [UK]</option>                                            <option unittype="Volume" unitid="40" value="((0.000016387064*231)/128)/480">minim [US]</option>                                            <option unittype="Weight" unitid="83" value="0.45359237/16">ounce</option>                                            <option unittype="Volume" unitid="41" value="0.00454609/160">ounce [UK, liquid]</option>                                            <option unittype="Volume" unitid="42" value="(0.000016387064*231)/128">ounce [US, liquid]</option>                                            <option unittype="Volume" unitid="43" value="0.00454609*2">peck [UK]</option>                                            <option unittype="Volume" unitid="44" value="0.0044048838*2">peck [US]</option>                                            <option unittype="Volume" unitid="45" value="(((0.000016387064*231)/128)/6)/16">pinch</option>                                            <option unittype="Volume" unitid="46" value="0.00454609/8">pint [UK]</option>                                            <option unittype="Volume" unitid="47" value="0.0044048838/8">pint [US, dry]</option>                                            <option unittype="Volume" unitid="48" value="(0.000016387064*231)/8">pint [US, liquid]</option>                                            <option unittype="Volume" unitid="49" value="0.00454609*108">pipe [UK]</option>                                            <option unittype="Volume" unitid="50" value="(0.000016387064*231)*126">pipe [US]</option>                                            <option unittype="Volume" unitid="51" value="(0.000016387064*231)/128">pony</option>                                            <option unittype="Weight" unitid="84" value="0.45359237">pound</option>                                            <option unittype="Volume" unitid="53" value="0.00108">quart [ancient hebrew]</option>                                            <option unittype="Volume" unitid="52" value="0.00114504">quart [Germany]</option>                                            <option unittype="Volume" unitid="54" value="0.00454609/4">quart [UK]</option>                                            <option unittype="Volume" unitid="55" value="0.0044048838/4">quart [US, dry]</option>                                            <option unittype="Volume" unitid="56" value="(0.000016387064*231)/4">quart [US, liquid]</option>                                            <option unittype="Volume" unitid="57" value="0.00001">Robie</option>                                            <option unittype="Volume" unitid="59" value="0.00001 * 5">Robie Shot</option>                                            <option unittype="Volume" unitid="58" value="0.00001">Robiespoon</option>                                            <option unittype="Weight" unitid="85" value="0.45359237*2000">short ton</option>                                            <option unittype="Volume" unitid="60" value="(0.000016387064*231)/128">shot</option>                                            <option unittype="Weight" unitid="117" value="0.0143">Tablespoon</option>                                            <option unittype="Volume" unitid="61" value="0.000015">Tablespoon [metric]</option>                                            <option unittype="Volume" unitid="62" value="(0.00454609/160)/2">Tablespoon [UK]</option>                                            <option unittype="Volume" unitid="63" value="((0.000016387064*231)/128)/2">Tablespoon [US]</option>                                            <option unittype="Weight" unitid="118" value="0.0047666">Teaspoon</option>                                            <option unittype="Volume" unitid="64" value="0.000005">Teaspoon [metric]</option>                                            <option unittype="Volume" unitid="65" value="(0.00454609/160)/8">Teaspoon [UK]</option>                                            <option unittype="Volume" unitid="66" value="((0.000016387064*231)/128)/6">Teaspoon [US]</option>                                            <option unittype="Weight" unitid="86" value="0.45359237*2240">ton [long, UK]</option>                                            <option unittype="Weight" unitid="87" value="1000">ton [metric]</option>                                            <option unittype="Weight" unitid="88" value="0.45359237*2000">ton [short, US]</option>                                            <option unittype="Weight" unitid="89" value="1000">tonne</option>                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" value="0.00" id="txtWgtPkg" style="text-align: right; float: right" onchange="CalculateTotalPortion();" onblur="CalculateTotalPortion();" name="txtWgtPkg" class="form-control-text number">
+                                </td>
+                                <td align="center">
+                                    <select name="drpPurchaseUnit" onchange="CalculateTotalPortion();" onblur="CalculateTotalPortion();" id="drpPurchaseUnit" style="width: 100px; float: left;" class="form-control">
+
+<option value="0" selected="selected">--select--</option>                                            <option unittype="Volume" unitid="1" value="0.00454609*31.5">barrel [UK, wine]</option>                                            <option unittype="Volume" unitid="2" value="0.00454609*36">barrel [UK]</option>                                            <option unittype="Volume" unitid="3" value="(0.000016387064)*7056">barrel [US, dry]</option>                                            <option unittype="Volume" unitid="4" value="(0.000016387064*231)*31">barrel [US, federal]</option>                                            <option unittype="Volume" unitid="5" value="(0.000016387064*231)*31.5">barrel [US, liquid]</option>                                            <option unittype="Volume" unitid="6" value="0.00454609*4">bucket [UK]</option>                                            <option unittype="Volume" unitid="7" value="(0.000016387064*231)*5">bucket [US]</option>                                            <option unittype="Volume" unitid="8" value="0.00454609*8">bushel [UK]</option>                                            <option unittype="Volume" unitid="9" value="0.0044048838*8">bushel [US, dry]</option>                                            <option unittype="Volume" unitid="67" value="0.00001">centigram</option>                                            <option unittype="Volume" unitid="10" value="0.00001">centiliter</option>                                            <option unittype="Volume" unitid="11" value="(((0.000016387064*231)/128)/6)/2">coffee spoon</option>                                            <option unittype="Volume" unitid="12" value="0.000001">cubic centimeter</option>                                            <option unittype="Volume" unitid="13" value="0.001">cubic decimeter</option>                                            <option unittype="Volume" unitid="14" value="0.00454609*0.05">cup [Canada]</option>                                            <option unittype="Volume" unitid="15" value="0.00025">cup [metric]</option>                                            <option unittype="Volume" unitid="16" value="(0.000016387064*231)/16">cup [US,Liquid]</option>                                            <option unittype="Weight" unitid="91" value="0.22">Cup US[soy bean oil]</option>                                            <option unittype="Weight" unitid="119" value="0.12500000">Cup[All Purpose Flour]</option>                                            <option unittype="Weight" unitid="105" value="0.108">Cup[Almonds, slivered]</option>                                            <option unittype="Weight" unitid="110" value="0.071">Cup[Broccoli, flowerets]</option>                                            <option unittype="Weight" unitid="100" value="0.220">Cup[Brown sugar]</option>                                            <option unittype="Weight" unitid="104" value="0.227">Cup[Butter]</option>                                            <option unittype="Weight" unitid="116" value="0.125">Cup[Cocoa]</option>                                            <option unittype="Weight" unitid="115" value="0.110">Cup[Confectioners sugar]</option>                                            <option unittype="Weight" unitid="99" value="0.200">Cup[Granulated sugar]</option>                                            <option unittype="Weight" unitid="107" value="0.322">Cup[Maple syrup]</option>                                            <option unittype="Weight" unitid="112" value="0.068 ">Cup[Milk, dry]</option>                                            <option unittype="Weight" unitid="108" value="0.245">Cup[Milk, non-fat]</option>                                            <option unittype="Weight" unitid="109" value="0.306">Cup[Milk, sweetened condensed]</option>                                            <option unittype="Weight" unitid="106" value="0.224">Cup[Oil]</option>                                            <option unittype="Weight" unitid="111" value="0.165">Cup[Raisins]</option>                                            <option unittype="Weight" unitid="101" value="0.125">Cup[Sifted white flour]</option>                                            <option unittype="Weight" unitid="121" value="0.1270000">Cup[US]</option>                                            <option unittype="Weight" unitid="114" value="0.236">Cup[Water]</option>                                            <option unittype="Weight" unitid="103" value="0.175">Cup[White rice, cooked]</option>                                            <option unittype="Weight" unitid="102" value="0.185 ">Cup[White rice, uncooked]</option>                                            <option unittype="Weight" unitid="113" value="0.245">Cup[Yogurt]</option>                                            <option unittype="Volume" unitid="17" value="(((0.000016387064*231)/128)/6)/8">dash</option>                                            <option unittype="Weight" unitid="68" value="0.0001">decigram</option>                                            <option unittype="Volume" unitid="18" value="0.0001">deciliter</option>                                            <option unittype="Weight" unitid="69" value="0.01">dekagram</option>                                            <option unittype="Volume" unitid="19" value="0.01">dekaliter</option>                                            <option unittype="Volume" unitid="20" value="0.00025">demi</option>                                            <option unittype="Volume" unitid="21" value="((0.000016387064*231)/128)/8">dram</option>                                            <option unittype="Weight" unitid="70" value="0.45359237/256">dram</option>                                            <option unittype="Volume" unitid="22" value="((0.000016387064*231)/128)/576">drop</option>                                            <option unittype="each" unitid="90" value="1">each</option>                                            <option unittype="Volume" unitid="23" value="(0.000016387064*231)/5">fifth</option>                                            <option unittype="Volume" unitid="24" value="0.00454609">gallon [UK]</option>                                            <option unittype="Volume" unitid="25" value="0.0044048838">gallon [US, dry]</option>                                            <option unittype="Volume" unitid="26" value="0.000016387064*231">gallon [US, liquid]</option>                                            <option unittype="Volume" unitid="27" value="0.00454609/32">gill [UK]</option>                                            <option unittype="Volume" unitid="28" value="(0.000016387064*231)/32">gill [US]</option>                                            <option unittype="Weight" unitid="71" value="0.00006479891">grain</option>                                            <option unittype="Weight" unitid="72" value="0.001">gram</option>                                            <option unittype="Weight" unitid="95" value="0.035">Heaped tblspn of butter</option>                                            <option unittype="Weight" unitid="93" value="0.021">Heaped tblspn of castor sugar</option>                                            <option unittype="Weight" unitid="96" value="0.014">Heaped tblspn of cornflour</option>                                            <option unittype="Weight" unitid="94" value="0.028">Heaped tblspn of flour</option>                                            <option unittype="Weight" unitid="97" value="0.021">heaped tblspn of gelatin</option>                                            <option unittype="Weight" unitid="73" value="0.1">hectogram</option>                                            <option unittype="Volume" unitid="29" value="0.1">hectoliter</option>                                            <option unittype="Volume" unitid="30" value="0.00454609*63">hogshead [UK]</option>                                            <option unittype="Volume" unitid="31" value="(0.000016387064*231)*63">hogshead [US]</option>                                            <option unittype="Weight" unitid="74" value="0.45359237*112">hundredWeight [long, UK]</option>                                            <option unittype="Weight" unitid="75" value="0.45359237*100">hundredWeight [short, US]</option>                                            <option unittype="Volume" unitid="32" value="((0.000016387064*231)/128)*1.5">jigger</option>                                            <option unittype="Weight" unitid="76" value="1">kilogram</option>                                            <option unittype="Volume" unitid="33" value="1">kiloliter</option>                                            <option unittype="Weight" unitid="77" value="0.45359237">lb, lbs</option>                                            <option unittype="Weight" unitid="98" value="0.028">level tblspn of sugar</option>                                            <option unittype="Volume" unitid="34" value="0.001">liter</option>                                            <option unittype="Weight" unitid="78" value="0.45359237*2240">long ton</option>                                            <option unittype="Volume" unitid="35" value="0.0077">measure [ancient hebrew]</option>                                            <option unittype="Weight" unitid="79" value="1000">megagram</option>                                            <option unittype="Volume" unitid="36" value="1000">megaliter</option>                                            <option unittype="Weight" unitid="80" value="1000">metric ton</option>                                            <option unittype="Weight" unitid="81" value="1.0e-9">microgram</option>                                            <option unittype="Volume" unitid="37" value="1.0e-9">microliter</option>                                            <option unittype="Weight" unitid="82" value="0.000001">milligram</option>                                            <option unittype="Volume" unitid="38" value="0.000001">milliliter</option>                                            <option unittype="Volume" unitid="39" value="(0.00454609/160)/480">minim [UK]</option>                                            <option unittype="Volume" unitid="40" value="((0.000016387064*231)/128)/480">minim [US]</option>                                            <option unittype="Weight" unitid="83" value="0.45359237/16">ounce</option>                                            <option unittype="Volume" unitid="41" value="0.00454609/160">ounce [UK, liquid]</option>                                            <option unittype="Volume" unitid="42" value="(0.000016387064*231)/128">ounce [US, liquid]</option>                                            <option unittype="Volume" unitid="43" value="0.00454609*2">peck [UK]</option>                                            <option unittype="Volume" unitid="44" value="0.0044048838*2">peck [US]</option>                                            <option unittype="Volume" unitid="45" value="(((0.000016387064*231)/128)/6)/16">pinch</option>                                            <option unittype="Volume" unitid="46" value="0.00454609/8">pint [UK]</option>                                            <option unittype="Volume" unitid="47" value="0.0044048838/8">pint [US, dry]</option>                                            <option unittype="Volume" unitid="48" value="(0.000016387064*231)/8">pint [US, liquid]</option>                                            <option unittype="Volume" unitid="49" value="0.00454609*108">pipe [UK]</option>                                            <option unittype="Volume" unitid="50" value="(0.000016387064*231)*126">pipe [US]</option>                                            <option unittype="Volume" unitid="51" value="(0.000016387064*231)/128">pony</option>                                            <option unittype="Weight" unitid="84" value="0.45359237">pound</option>                                            <option unittype="Volume" unitid="53" value="0.00108">quart [ancient hebrew]</option>                                            <option unittype="Volume" unitid="52" value="0.00114504">quart [Germany]</option>                                            <option unittype="Volume" unitid="54" value="0.00454609/4">quart [UK]</option>                                            <option unittype="Volume" unitid="55" value="0.0044048838/4">quart [US, dry]</option>                                            <option unittype="Volume" unitid="56" value="(0.000016387064*231)/4">quart [US, liquid]</option>                                            <option unittype="Volume" unitid="57" value="0.00001">Robie</option>                                            <option unittype="Volume" unitid="59" value="0.00001 * 5">Robie Shot</option>                                            <option unittype="Volume" unitid="58" value="0.00001">Robiespoon</option>                                            <option unittype="Weight" unitid="85" value="0.45359237*2000">short ton</option>                                            <option unittype="Volume" unitid="60" value="(0.000016387064*231)/128">shot</option>                                            <option unittype="Weight" unitid="117" value="0.0143">Tablespoon</option>                                            <option unittype="Volume" unitid="61" value="0.000015">Tablespoon [metric]</option>                                            <option unittype="Volume" unitid="62" value="(0.00454609/160)/2">Tablespoon [UK]</option>                                            <option unittype="Volume" unitid="63" value="((0.000016387064*231)/128)/2">Tablespoon [US]</option>                                            <option unittype="Weight" unitid="118" value="0.0047666">Teaspoon</option>                                            <option unittype="Volume" unitid="64" value="0.000005">Teaspoon [metric]</option>                                            <option unittype="Volume" unitid="65" value="(0.00454609/160)/8">Teaspoon [UK]</option>                                            <option unittype="Volume" unitid="66" value="((0.000016387064*231)/128)/6">Teaspoon [US]</option>                                            <option unittype="Weight" unitid="86" value="0.45359237*2240">ton [long, UK]</option>                                            <option unittype="Weight" unitid="87" value="1000">ton [metric]</option>                                            <option unittype="Weight" unitid="88" value="0.45359237*2000">ton [short, US]</option>                                            <option unittype="Weight" unitid="89" value="1000">tonne</option>                                    </select></td>
+                                <td style="text-align: right">
+                                    <label id="lblTotalPortion">0.00</label>
+                                    <input type="text" value="0.00" style="display: none;" id="txtTotalPortion" onchange="CalculateYieldPortion();">
+                                </td>
+                                <td>
+                                    <input type="text" value="0.00" style="text-align: right; float: right" id="txtPurchasePrice" name="txtPurchasePrice" onchange="CalculateUnitCost();" onblur="CalculateUnitCost();" class="form-control-text number"></td>
+                                <td>
+                                    <input type="text" id="txtYield" style="text-align: right; float: right" value="100" name="txtYield" onchange="CalculateYieldPortion();" class="form-control-text number"></td>
+                                <td style="text-align: right">
+                                    <label id="lblYieldPortion">0.00</label>
+                                    <input type="text" value="0.00" style="display: none;" onchange="CalculateUnitCost();" id="txtYieldPortion">
+                                </td>
+                                <td style="text-align: right">
+                                    <label id="lblUnitCost">0.00</label>
+                                    <input type="text" value="0.00" style="display: none;" id="txtUnitCost" onchange="CalculateCost();">
+                                </td>
+                                <td style="text-align: right">
+                                    <label id="lblCost">0.00</label>
+                                </td>
+                                <td style="text-align: right">
+                                    <label id="lblCostPer"></label>
+                                </td>
+                                <td>
+                                    <a id="lnkAdd" href="javascript:void(0);" onclick="AddItems(0);" style="display: block;"><span class="glyphicon glyphicon-floppy-save uk-text-primary" style="padding: 5px" aria-hidden="true"></span></a>
+                                    <a id="lnkUpdate" style="float: left; display: none;" href="javascript:void(0);" onclick="AddItems(1)"><span class="glyphicon glyphicon-ok uk-text-primary" style="padding: 5px" aria-hidden="true"></span></a>
+                                    <a id="lnkCancel" style="float: left; display: none;" href="javascript:void(0);" onclick="ResetFooter()"><span class="glyphicon glyphicon-remove uk-text-danger" style="padding: 5px" aria-hidden="true"></span></a>
+                                    <input type="hidden" id="hdnUpdateId">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+
+
+
+
+
+</body></html>

@@ -1,0 +1,58 @@
+﻿@model DishUp.PACKAGING
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PACKAGING</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IMAGE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IMAGE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UNIT_PRICE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UNIT_PRICE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WHOLESALE_PRICE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WHOLESALE_PRICE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTIVE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTIVE)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_PACKAGING }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

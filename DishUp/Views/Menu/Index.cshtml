@@ -1,0 +1,58 @@
+﻿@model IEnumerable<DishUp.MENU>
+
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+
+<p>
+    @Html.ActionLink("Add new Package", "Create", "", new { @class = "btn btn-success" })
+
+</p>
+<table class="table" id="menuTable" data-paging="true" data-filtering="true" data-sorting="true" data-state="true">
+   
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NOMBRE)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NOMBRE)
+                </td>
+
+                <td>
+
+                    <a href="@Url.Action("Edit", "Menu",new { id = item.ID_MENU })" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        Edit
+                    </a>
+                    <a href="@Url.Action("Delete", "Menu",new { id = item.ID_MENU })" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        Delete
+                    </a>
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.ID_MENU }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Details", "Details", new { id = item.ID_MENU }, new { @style = "display:none;" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID_MENU }, new { @class = "btn btn-danger" })*@
+                </td>
+            </tr>
+        }
+
+        </tabl
+    </tbody>
+</table>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#menuTable').DataTable();
+        });
+    </script>
+
+}

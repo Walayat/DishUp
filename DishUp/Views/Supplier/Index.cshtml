@@ -1,0 +1,78 @@
+﻿@model IEnumerable<DishUp.USER_SUPPLIER>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script src="~/Scripts/Supplier.js"></script>
+<p>
+    <h2>@Html.ActionLink("Add Supplier", "Create", "Supplier", new { i = 1 }, new { @class = "btn btn-success" })</h2>
+</p>
+
+
+<div id="divShow" style="display:none">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <strong><span id="Title"></span></strong><span id="dtMessage"></span>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SURNAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MOBILE_NUMBER)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.EMAIL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OPEN_HOURS)
+        </th>
+    
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SURNAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MOBILE_NUMBER)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.EMAIL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OPEN_HOURS)
+            </td>
+        
+            <td>
+                <a href="@Url.Action("EditSupplier", "Supplier",new { id = item.ID_USER_SUPPLIER })" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    Edit
+                </a>
+           
+                @Html.ActionLink(" Delete ", "DeleteSupplier", "SUPPLIER", new { id = item.ID_USER_SUPPLIER }, new { @class = "btn btn-danger iconDelete" })
+
+                @*<a href="@Url.Action("Create", "Orders",new { id = item.ID_USER_SUPPLIER})" class="btn btn-warning">
+            <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
+            Make an order
+        </a>*@
+
+            </td>
+        </tr>
+    }
+
+</table>

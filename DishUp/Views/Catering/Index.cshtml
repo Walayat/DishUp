@@ -1,0 +1,91 @@
+﻿@model IEnumerable<DishUp.CATERING>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2>
+    @Html.ActionLink("Add new Catering", "Create", "", new { @class = "btn btn-lg btn-success" })
+    @Html.ActionLink("View Packaging", "Index", "PackagingSupplies", null, new { @class = "btn btn-lg btn-success" })
+
+</h2>
+<table class="table" id="cateringTable" data-paging="true" data-filtering="true" data-sorting="true" data-state="true">
+    <thead>
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MENU.NOMBRE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CLIENT.NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AMOUNT_PEOPLE)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.EVENT_DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NOTES)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MENU.NOMBRE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CLIENT.NAME)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.AMOUNT_PEOPLE)
+                </td>
+
+                <td>
+                    @if (item.EVENT_DATE != null)
+                    {
+                        var fechaCorta = item.EVENT_DATE.Value.ToShortDateString();
+                        @Html.DisplayFor(modelItem => fechaCorta)
+
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.EVENT_DATE)
+
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NOTES)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "Catering",new { id = item.ID_CATERING })" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        Edit
+                    </a>
+                    <a href="@Url.Action("Delete", "Catering",new { id = item.ID_CATERING })" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#cateringTable').DataTable();
+        });
+    </script>
+
+}

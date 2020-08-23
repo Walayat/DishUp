@@ -1,0 +1,74 @@
+﻿@model DishUp.CATERING
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CATERING</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AMOUNT_PEOPLE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AMOUNT_PEOPLE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ADDRESS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ADDRESS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EVENT_DATE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EVENT_DATE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NOTES)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOTES)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HAS_PARKING)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HAS_PARKING)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CLIENT.NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLIENT.NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MENU.NOMBRE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MENU.NOMBRE)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_CATERING }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,59 @@
+﻿@model DishUp.Models.RecipeDetailViewModel
+
+
+
+
+    <table>
+        <tr>
+            <th>
+                Item Name
+            </th>
+            <th>
+                Portioned Size
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Portioned By
+            </th>
+            <th>
+                Cost
+            </th>
+        </tr>
+        @if (Model.details.Count() > 0)
+        {
+            foreach (var it in Model.details)
+            {
+                <tr>
+                    <td>
+                        @it.USER_SUPPLIER_INSUMO.NAME
+                    </td>
+                    <td>
+                        @it.USER_SUPPLIER_INSUMO.MEDIDA.NOMBRE
+                    </td>
+                    <td>
+                        @it.QUANTITY
+                    </td>
+                    <td>
+                        @it.MEDIDA.NOMBRE
+                    </td>
+                    <td>
+                        @it.COST
+                    </td>
+                    <td></td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">
+                    <h1>NO RESULTS</h1>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+<h1>Total cost: @Model.details.Sum(x=>x.COST)</h1>

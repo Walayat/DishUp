@@ -1,0 +1,21 @@
+﻿@model ICollection<string>
+
+
+@* 
+    
+    Call from main view:
+@{
+    ViewBag.ListDescription = “Skills:”;
+    Html.RenderPartial(“_StringCollection”, Model.Skills);
+}
+
+*@
+<div>
+    <p>
+        @ViewBag.ListDescription
+        @foreach (var value in Model)
+        {
+            <span class=”label label-primary”>@value</span>
+        }
+    </p>
+</div>

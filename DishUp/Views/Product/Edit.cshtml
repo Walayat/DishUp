@@ -1,0 +1,249 @@
+﻿@model DishUp.PRODUCTO
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+<link href="~/Content/FineUploader/fineuploader.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.fineuploader-3.1.min.js"></script>
+
+<div class="card">
+    <div class="card-header ">
+        <ul class="nav nav-pills card-header-pills" id="cardPill" role="tablist">
+            <li class="nav-item"><a class="nav-link active" id="overview-pill" href="#productDetails" data-toggle="tab" role="tab" aria-controls="overview" aria-selected="true">Product Details</a></li>
+            <li class="nav-item"><a class="nav-link" id="example-pill" href="#productIngredients" data-toggle="tab" role="tab" aria-controls="example" aria-selected="false">Ingredients</a></li>
+            <li class="nav-item"><a class="nav-link" id="example-pill" href="#priceCalculator" data-toggle="tab" role="tab" aria-controls="example" aria-selected="false">Profit Calculator</a></li>
+        </ul>
+
+
+    </div>
+    <div class="card-body">
+        <div class="tab-content" id="cardPillContent">
+            <!--   PRODUCT DETAILS -->
+            <div class="tab-pane fade show active" id="productDetails" role="tabpanel" aria-labelledby="overview-pill">
+                <div class="card">
+                    <div class="row no-gutters">
+                        <div class="col-md-4" style="align-content:center;">
+                            <div id="imgLoader">
+                                @Html.Action("GetImage", "Product", new { ID = Model.ID_PRODUCTO })
+                            </div>
+                            <div style=" margin:40px 0 0 30px;">
+                                <img class="img-fluid" src="~/Uploads/img/taco.jpeg" alt="...">
+
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="form-horizontal">
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        @Html.HiddenFor(model => model.ID_PRODUCTO)
+
+                                        <div class="form-group" >
+                                            <div class="row" style="background-color:red;">
+                                                <div class="col-lg-2">
+                                                    @*<img src="@Model.IMAGEN" width="50" height="50" alt="Alternate Text" />*@
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    @using (Ajax.BeginForm("UploadFile", "PRODUCT", new { id = Model.ID_PRODUCTO }, new AjaxOptions
+                                                    {
+                                                        UpdateTargetId = "imgLoader",
+                                                        HttpMethod = "POST",
+                                                        InsertionMode = InsertionMode.Replace,
+                                                        OnSuccess = ""
+
+                                                    }, new { @class = "form-horizontal" }))
+                                                    {
+                                                        <div id="fine-uploader">
+
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.NOMBRE, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.NOMBRE, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.NOMBRE, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" style="display:none;">
+                                            @Html.LabelFor(model => model.ES_COMBO, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.ES_COMBO, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.ES_COMBO, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" style="display:none;">
+                                            @Html.LabelFor(model => model.ACTIVE, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.EditorFor(model => model.ACTIVE)
+                                                    @Html.ValidationMessageFor(model => model.ACTIVE, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.Label("DISH COST: ", htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.WHOLESALE_PRICE, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.WHOLESALE_PRICE, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.Label("SALE PRICE: ", htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.SALE_PRICE, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.SALE_PRICE, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.Label("UNITS: ", htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.PESO_UNIDADES, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.PESO_UNIDADES, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-10 col-md-offset-2" style="text-align:right;">
+                                                <input type="submit" value="Save" class="btn btn-primary" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="productIngredients" role="tabpanel" aria-labelledby="supplie-pill">
+                <div data-toggle="modal" data-target="#myModals" class="btn btn-lg btn-success">Add Ingredient</div>
+                <div id="supplieList">
+                    @Html.Action("GetSuppliesList", "Product", Model.ID_PRODUCTO)
+
+                </div>
+            </div>
+            <div class="tab-pane fade" id="priceCalculator" role="tabpanel" aria-labelledby="example-pill">
+                <div>
+                    @Html.Action("GetProfit", "Product", new { ID_PRODUCTO = Model.ID_PRODUCTO })
+                </div>
+                <div id="profitResult">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="myModals" tabindex="-1" role="dialog" aria-labelledby="modalAddSupplie" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAddSupplie">Add Ingredient</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                @Html.Action("AddSupplie", "PRODUCT", new { id = Model.ID_PRODUCTO })
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="myModalSupplie" role="dialog" aria-labelledby="modalAddSupplie" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAddSupplie">Edit Ingredient</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <div id="supplieDetail">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script type="text/javascript">
+    function createUploader() {
+
+         var uploader = new qq.FineUploader({
+            element: document.getElementById('fine-uploader'),
+            debug: true,
+            request: {
+                endpoint: '@Url.Action("UploadFile", "Product", new RouteValueDictionary(new { id = Model.ID_PRODUCTO }))'
+            },
+            multiple: false,
+            validation: {
+                allowedExtensions: ['jpeg', 'jpg', 'png', 'gif', 'tiff'],
+                sizeLimit: 2097152 // 50 kB = 50 * 1024 bytes
+            },
+            callbacks: {
+                onComplete: function (id, fileName, responseJSON) {
+                    if (responseJSON.FilePath != '') {
+                        $("#imgProdIns").attr("src", "http://dummyimage.com/250x155/");
+                        alert(responseJSON.extraInformation);
+                  //do something
+                    }
+                }
+            }
+        });
+    }
+      function ClearSupplie() {
+
+            //$('#ID_INSUMO').val('');
+            $('#myModalSupplie').modal('hide');
+                 $('#quantity').val('');
+          $('#ID_INSUMO').empty();
+          $.ajax({
+              url: "/Product/GetSuppliesList",
+              type: "GET",
+              data: { id: @Model.ID_PRODUCTO }
+          })
+              .done(function (partialViewResult) {
+                  $("#supplieList").html(partialViewResult);
+
+                      $("#WHOLESALE_PRICE").val($("#totalPackage span").text());
+
+            });
+    }
+    function ClearForm() {
+
+        $('#myModals').modal('hide');
+        var form = document.getElementById('formuSupplie');
+        form.reset();
+    }
+    window.onload = createUploader;
+</script>
+<script>
+    $(".iconEdit").prepend("<span class=\"glyphicon glyphicon-pencil\"></span>&nbsp;");
+    $(".iconDelete").prepend("<span class=\"glyphicon glyphicon-remove\"></span>&nbsp;");
+</script>

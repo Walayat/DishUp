@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "index";
+}
+
+<h2>index</h2>
+<input id="address" />
+@section scripts {
+    
+    <script>
+
+          $("#address").select2(
+        {
+            ajax: {
+                delay: 150,
+                url: 'http://maps.six.nsw.gov.au/services/public/Address_Location,
+                dataType: 'json',
+                data: function (params) {
+                    params.page = params.page || 1;
+                    return {
+                        searchTerm: params.term,
+                        pageSize: pageSize,
+                        pageNumber: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: data.Results,
+                        pagination: {
+                            more: (params.page * pageSize) < data.Total
+                        }
+                    };
+                }
+            },
+            placeholder: "-- Select a Client --",
+            minimumInputLength: 0,
+            allowClear: true
+        });
+    </script>
+    }

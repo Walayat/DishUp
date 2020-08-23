@@ -1,0 +1,56 @@
+﻿@model IEnumerable<DishUp.USER_SUPPLIER_INSUMO>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>
+
+    @Html.ActionLink("Add Ingredient", "Create", "", new { @class = "btn btn-success" })
+</h2>
+
+<table class="table" id="insumoTable" data-paging="true" data-filtering="true" data-sorting="true" data-state="true">
+    <thead>
+
+        <tr>
+            <th>
+                @Html.Label("Supplie Name")
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NAME)
+                </td>
+
+
+                <td align="right">
+                    <a href="@Url.Action("Edit", "Insumo",new { id = item.ID_USER_SUPPLIER_INSUMO })" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        Edit
+                    </a>
+                    @*@Ajax.ActionLink("Delete", "DeleteConfirmed", "INSUMO", new { id = item.ID_USER_SUPPLIER_INSUMO }, new AjaxOptions { Confirm = "Are you sure you want to delete this item?", HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "supplieList" }, new { @class = "btn btn-danger iconDelete" })*@
+
+                    <a href="@Url.Action("DeleteConfirmed", "Insumo",new { id = item.ID_USER_SUPPLIER_INSUMO})" onclick="confirm('Are you sure you want to delete this item?');" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        Delete
+                    </a>
+
+</tr>
+        }
+    </tbody>
+</table>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#insumoTable').DataTable();
+        });
+    </script>
+
+}

@@ -1,0 +1,78 @@
+﻿@model DishUp.MENU_INSUMO
+
+
+
+@using (Ajax.BeginForm("AddSupplies", "MENU", new { ID_MENU = Model.ID_MENU }, new AjaxOptions
+{
+    UpdateTargetId = "supplieList",
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    OnSuccess = "ClearSupplie"
+
+}, new { @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(x => x.ID_MENU)
+    <div class="form-group">
+        <div class="row">
+            @Html.LabelFor(model => model.ID_INSUMO, "Supplie: ", htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.DropDownList("ID_INSUMO", null, "Select a supplie", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ID_INSUMO, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            @Html.LabelFor(model => model.ID_MEDIDA, "Unit Weight: ", htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.DropDownList("ID_MEDIDA", null, "Select ", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ID_MEDIDA, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <br />
+
+        <div class="row">
+            @Html.LabelFor(model => model.QUANTITY, "Quantity", htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.QUANTITY, "Insert Quantity", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-lg-offset-4" style="padding-left:35px;">
+                <button id="ff" name="ff" class="btn btn-success">Aceptar</button>
+                <button id="button2id" name="button2id" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
+
+            </div>
+        </div>
+
+    </div>
+
+}
+@section Scripts {
+
+    <script type="text/javascript">
+            $('#ID_INSUMO').change(function () {
+                var selectdSupplie = $("#ID_INSUMO").val();
+                var regionsSelect = $('#ID_MEDIDA');
+                regionsSelect.empty();
+                if (selectedCountry != null && selectedCountry != '') {
+                    $.getJSON('@Url.Action("GetMedidas")', { id: selectdSupplie }, function (regions) {
+                        if (regions != null && !jQuery.isEmptyObject(regions))
+                        {
+                            regionsSelect.append($('<option/>', {
+                                value: null,
+                                text: ""
+                            }));
+                            $.each(regions, function (index, region) {
+                                regionsSelect.append($('<option/>', {
+                                    value: region.Value,
+                                    text: region.Text
+                                }));
+                            });
+                        };
+                    });
+                }
+            });
+    </script>
+}

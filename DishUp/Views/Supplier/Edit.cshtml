@@ -1,0 +1,264 @@
+﻿@model DishUp.Models.SupplierViewModel
+
+@{
+    ViewBag.Title = "Edit";
+
+
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" important crossorigin="anonymous">
+<script src="~/Scripts/Supplier.js"></script>
+<div id="divShow" style="display:none">
+    <strong><span id="Title"></span></strong><span id="dtMessage"></span>
+</div>
+<div class="card">
+    <div class="card-header ">
+        <ul class="nav nav-pills card-header-pills" id="cardPill" role="tablist">
+            <li class="nav-item"><a class="nav-link active" id="overview-pill" href="#overviewPill" data-toggle="tab" role="tab" aria-controls="overview" aria-selected="true">Supplier Details</a></li>
+            <li class="nav-item"><a class="nav-link" id="example-pill" href="#supplieList" data-toggle="tab" role="tab" aria-controls="example" aria-selected="false">Products</a></li>
+        </ul>
+
+
+    </div>
+    <div class="card-body">
+        <div class="tab-content" id="cardPillContent">
+            <div class="tab-pane fade show active" id="overviewPill" role="tabpanel" aria-labelledby="overview-pill">
+                <div id="SupplierInformation">
+
+                    <div class="d-sm-flex align-items-center justify-content-between ">
+                        <h1 class="h3 mb-0 text-gray-800">Edit Supplier</h1>
+                        <a href="@Url.Action("Index","Supplier")" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Back to Supplier List</a>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+
+                            <div class="form-horizontal">
+                                <h4>SUPPLIER</h4>
+                                @Html.HiddenFor(x => x.IS_FROM_USER)
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.Label("Company Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.NAME, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.NAME, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("Rep. Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.SURNAME, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.SURNAME, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("Landline Number", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.MOBILE_NUMBER, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.MOBILE_NUMBER, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("Mobile Number", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.PHONE_NUMBER, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.PHONE_NUMBER, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="display:none;">
+                                    @Html.LabelFor(model => model.ABN_NUMBER, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.ABN_NUMBER, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ABN_NUMBER, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="display:none">
+                                    @Html.LabelFor(model => model.ACN_NUMBER, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.ACN_NUMBER, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ACN_NUMBER, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.EMAIL, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="display:none;">
+                                    @Html.LabelFor(model => model.OPEN_HOURS, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.OPEN_HOURS, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.OPEN_HOURS, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Delivery Days", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.DELIVERY_DAYS, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.DELIVERY_DAYS, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Add Supplier" class="btn btn-success" />
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="supplieList" role="tabpanel" aria-labelledby="example-pill">
+                @Html.Action("GetSuppliesList", new { ID_SUPPLIER = Model.ID_SUPPLIER })
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@*<div class="modal fade" id="modalSuppliesList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">List of products in sale by @Model.NAME</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <div id="supplieLists">
+                        @Html.Action("GetSuppliesList", new { ID_SUPPLIER = Model.ID_SUPPLIER })
+                    </div>
+                </div>
+                <div class="modal-footer"><button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save changes</button></div>
+            </div>
+        </div>
+    </div>*@
+
+@*<div class="modal fade" id="modalNewSupplie" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <div id="newSupplie">
+                        @Html.Action("AddSupplie", "SUPPLIER", Model.ID_SUPPLIER)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+
+<div class="modal fade" id="newModalSupplie" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Supplie</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div id="formuSupplie">
+                        @*@Html.Action("EditSupplie", "SUPPLIER", new { id = Model.ID_SUPPLIER })*@
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalSupplier" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <div id="supplieDetail"></div>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+
+</div>
+@*<div class="modal fade" id="editModalSupplie" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header fa fa-cross">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit Supplie</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="formuSupplie">
+                            @Html.Action("EditSupplie", "SUPPLIER", new { id = Model.ID_SUPPLIER })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+@section scripts {
+    <script language="javascript" type="text/javascript">
+    $(function () {
+    //ensure visible state matches initially
+    $(".iconEdit").prepend("<span class=\"fa fa-edit\"></span>&nbsp;");
+    $(".iconDelete").prepend("<span class=\"fa fa-trash\"></span>&nbsp;");
+});
+    </script>
+
+
+    <script>
+
+                //function ClearSupplie() {
+                //    //$('#ID_INSUMO').val('');
+                //    $('#modalSupplier').modal('hide');
+
+                //    $('#modalNewSupplie').modal('hide');
+                //    var frm = document.getElementById('formAddSupplie');
+                //    frm.reset();  // Reset all form data
+                //    return false;
+                //}
+
+    </script>
+}

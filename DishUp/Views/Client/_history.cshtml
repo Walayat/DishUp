@@ -1,0 +1,54 @@
+﻿@model IEnumerable<DishUp.Models.ClientHistoryViewModel>
+
+<table class="table" id="clientHistoryTable" data-paging="true" data-filtering="true" data-sorting="true" data-state="true">
+    <tr>
+        <th>
+            NAME
+        </th>
+        <th>
+            ADDRESS
+        </th>
+        <th>
+            EVENT DATE
+        </th>
+        <th>
+        </th>
+
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.clientName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.eventDate)
+            </td>
+            <td>
+                @Ajax.ActionLink("View Order", "GetOrderInfo",new { id = item.ID_CATERING }, new AjaxOptions {
+
+                        HttpMethod="GET",
+                        InsertionMode = InsertionMode.Replace,
+                        OnComplete="showInfo()",
+                        
+                        UpdateTargetId="clientHistoryModal"
+
+                    }, new { @class="btn btn-primary glyphicon glyphicon-paperclip"})
+                
+            </td>
+         
+
+
+
+        </tr>
+    }
+
+</table>
+@section scripts {
+ 
+}

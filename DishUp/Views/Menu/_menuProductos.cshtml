@@ -1,0 +1,38 @@
+﻿@model IEnumerable<MENU_PRODUCTO>
+
+<div data-toggle="modal" data-target="#myModals" class="btn btn-lg btn-success">Add Product</div>
+
+<hr />
+@if (Model != null)
+{
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Action</th>
+        </tr>
+        @foreach (var it in Model)
+        {
+            if (it.PRODUCTO != null)
+            {
+                <tr>
+                    <td>@it.PRODUCTO.NOMBRE</td>
+                    <td>@it.CANTIDAD</td>
+                    <td>
+                    
+                        
+                        @Ajax.ActionLink("Edit ", "EditProductMenu", "MENU", new { ID = it.ID_MENU_PRODUCTO }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "productDetail", OnSuccess = "$('#myProductSupplie').modal();" }, new { @class = "btn btn-primary iconEdit" })
+
+                        @Ajax.ActionLink("Delete", "DeleteMenuProduct", "MENU", new { id = it.ID_MENU_PRODUCTO, ID_MENU = it.ID_MENU }, new AjaxOptions { Confirm = "Are you sure you want to delete this item?", HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "productList" }, new { @class = "btn btn-danger iconDelete" })
+                   
+                    </td>
+                </tr>
+            }
+
+        }
+
+
+    </table>
+
+}
+

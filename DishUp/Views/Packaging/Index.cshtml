@@ -1,0 +1,62 @@
+﻿@model IEnumerable<DishUp.PACKAGING>
+
+@{
+    ViewBag.Title = "Packaging";
+}
+
+<br />
+<p>
+    @Html.ActionLink("Add Packaging", "Create", "", new { @class = "btn btn-lg btn-success" })
+
+</p>
+<table class="table" id="packagingTable" data-paging="true" data-filtering="true" data-sorting="true" data-state="true">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IMAGE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UNIT_PRICE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WHOLESALE_PRICE)
+        </th>
+      
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IMAGE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NAME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UNIT_PRICE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WHOLESALE_PRICE)
+        </td>
+      
+        <td>
+
+            <a href="@Url.Action("Edit", "Packaging",new { id = item.ID_PACKAGING })" class="btn btn-primary">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                Edit
+            </a>
+            <a href="@Url.Action("Delete", "Packaging",new { id = item.ID_PACKAGING })" class="btn btn-danger">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                Delete
+            </a>
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.ID_MENU }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Details", "Details", new { id = item.ID_MENU }, new { @style = "display:none;" })
+        @Html.ActionLink("Delete", "Delete", new { id = item.ID_MENU }, new { @class = "btn btn-danger" })*@
+        </td>
+    </tr>
+}
+
+</table>

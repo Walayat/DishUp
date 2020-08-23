@@ -1,0 +1,57 @@
+﻿@model DishUp.MENU_PRODUCTO
+
+@using (Ajax.BeginForm("AddProducts", "MENU", new { id = Model.ID_MENU }, new AjaxOptions
+{
+    UpdateTargetId = "productList",
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    OnSuccess = "ClearProduct"
+
+}, new { @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(o => o.ID_MENU)
+    @Html.HiddenFor(o => o.ID_MENU_PRODUCTO)
+    <div class="form-group">
+        @Html.LabelFor(model => model.ID_PRODUCTO, "Product: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("ID_PRODUCTO", null, "Select a product", htmlAttributes: new { @class = "form-control col-md-10", @style = "width:70%;" })
+            @Html.ValidationMessageFor(model => model.ID_PRODUCTO, "", new { @class = "text-danger" })
+
+        </div>
+    </div>
+    <br />
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CANTIDAD, "Quantity", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.CANTIDAD, new { @class = "form-control", @style = "width:75%;" })
+        </div>
+    </div>
+    
+
+
+    @*<div class="col-md-4">
+            <div id="btnNewclient" class="btn  btn-primary ">New Client</div>
+
+        </div>*@
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-lg-12 col-lg-offset-4" style="padding-left:35px;">
+                <button id="ff" type="submit" name="ff" class="btn btn-success">Aceptar</button>
+                <button id="button2id" name="button2id" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <style>
+        .select2-search__field {
+            width: 400px;
+        }
+    </style>
+}
+  

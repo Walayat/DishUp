@@ -1,0 +1,20 @@
+﻿
+@model bool?
+
+
+@* 
+    
+<p>Likes Music: @Html.DisplayFor(model => model.LikesMusic)</p>
+
+
+*@
+
+@if (Model.HasValue)
+{
+    if (Model.Value)
+    {<span class=“label label-success”>Yes</span> }
+    else
+    { <span class=“label label-warning”>No</span> }
+}
+else
+{ <span class=“label label-info”>Not Set</span>}

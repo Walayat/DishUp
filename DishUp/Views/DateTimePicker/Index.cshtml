@@ -1,0 +1,43 @@
+﻿@model CATERING
+@{
+    ViewBag.Title = "Dtp";
+}
+<div class="form-group">
+    @Html.LabelFor(model => model.EVENT_DATE,
+        htmlAttributes: new { @class = "control-label col-md-3" })
+    <div class="col-md-8">
+        @Html.EditorFor(model => model.EVENT_DATE,
+           new { htmlAttributes = new {
+             @Value = Model.EVENT_DATE,
+             @class = "form-control" }, })
+        @Html.ValidationMessageFor(model => model.EVENT_DATE, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(model => model.EVENT_DATE, htmlAttributes: new { @class = "control-label col-md-3" })
+    @*<div class="col-md-8">
+        @Html.EditorFor(model => model.EVENT_DATE,
+      new { htmlAttributes = new {
+               @Value = Model.EVENT_DATE,
+               @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.EVENT_DATE, "", new { @class = "text-danger" })
+    </div>*@
+</div>
+<h2>Dtp</h2>
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(function () {
+                $('#EVENT_DATE').datetimepicker({
+                    defaultDate: '@Model.EVENT_DATE',
+                    format: 'L',
+                    showClose: true,
+                    showClear: true,
+                    toolbarPlacement: 'top'
+                });
+
+            });
+        });
+    </script>
+}
+

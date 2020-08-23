@@ -1,0 +1,66 @@
+﻿@model DishUp.INSUMO_PACKAGING
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>INSUMO_PACKAGING</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.QUANTITY)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QUANTITY)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.maxPerson)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.maxPerson)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.minPerson)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.minPerson)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTIVE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTIVE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.INSUMO.NOMBRE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.INSUMO.NOMBRE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PACKAGING.IMAGE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PACKAGING.IMAGE)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_INSUMO_PACKAGING }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

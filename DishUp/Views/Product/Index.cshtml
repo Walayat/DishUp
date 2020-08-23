@@ -1,0 +1,64 @@
+﻿@model IEnumerable<DishUp.PRODUCTO>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Add Product", "Create", "", new { @class = "btn btn-success" })
+</p>
+<table class="table" id="productTable" data-paging="true" data-filtering="true" data-sorting="true" data-state="true">
+    <thead>
+
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.NOMBRE)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.WHOLESALE_PRICE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SALE_PRICE)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NOMBRE)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.WHOLESALE_PRICE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SALE_PRICE)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID_PRODUCTO }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Details", "Details", new { id = item.ID_PRODUCTO }, new { @style = "display:none;" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID_PRODUCTO }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#productTable').DataTable();
+        });
+    </script>
+
+}

@@ -1,0 +1,24 @@
+﻿@model  IEnumerable<ORDERS_ITEM>
+
+@if (Model.Count() > 0)
+{
+
+    <table class="table">
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th></th>
+        </tr>
+        @foreach (ORDERS_ITEM item in Model)
+        {
+            <tr>
+                <td>@item.SUPPLIER_INSUMO.INSUMO.NOMBRE</td>
+                <td>@item.QUANTITY</td>
+                <th>
+                    @Ajax.ActionLink("Remove", "DeleteSupplie", "Orders", new { id = item.ID_ORDER_ITEM,ID_ORDER = item.ID_ORDER }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "supplieList", OnSuccess = "$('#myModalSupplie').modal();" }, new { @class = "btn btn-danger iconDelete" })
+
+                </th>
+            </tr>
+        }
+    </table>
+}

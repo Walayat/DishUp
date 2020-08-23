@@ -1,0 +1,194 @@
+﻿@model DishUp.USER_SUPPLIER_INSUMO
+
+
+@{
+    ViewBag.Title = "Index";
+}
+<h1 class="h3 mb-0 text-gray-800">Edit Product</h1>
+<hr />
+<br />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.ID_USER_SUPPLIER_INSUMO)
+<div class="form-horizontal">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.Label("SUPPLIER")
+
+                @Html.DropDownList("ID_USER_SUPPLIER", null, "Select Supplier", htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.Label("Product Name")
+                @Html.EditorFor(model => model.NAME, new { htmlAttributes = new { @name = "NAME", placeholder = "Product Name", @class = "form-control" } })
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.Label("Code")
+
+                @Html.EditorFor(model => model.CODE, new { htmlAttributes = new { placeholder = "Code", @class = "form-control" } })
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.CheckBox("IS_BOX", Model.IS_BOX)
+                <label for="IS_BOX">Does it contain multiple items?</label>
+
+
+                @*@if (Model.IS_BOX == true)
+                    {
+                        <input value="true" type="checkbox" class="custom-control-input" id="IS_BOX" name="IS_BOX">
+                        <input type="hidden" name="IS_BOX" value="false" />
+
+                    }
+                    else
+                    {
+                        <input value="false" type="checkbox" class="custom-control-input" id="IS_BOX" name="IS_BOX">
+                        <input type="hidden" name="IS_BOX" value="true" />
+
+                    }*@
+
+
+            </div>
+        </div>
+    </div>
+    <div id="isBoxSupplie" style="display:none;">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Quantity per box")
+
+                    @Html.EditorFor(model => model.QUANTITY_BOX, new { htmlAttributes = new { placeholder = "Quantity per Box", @class = "form-control" } })
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" style="display:none;">
+                    @Html.Label("Portioned By")
+
+                    @Html.DropDownList("ID_CUSTOM_UNIT", null, "Portioned By", htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.Label("Quantity")
+
+                @Html.EditorFor(model => model.QUANTITY, new { htmlAttributes = new { placeholder = "Quantity", @class = "form-control" } })
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group" style="display:none">
+                @Html.Label("Portion Size")
+
+                @Html.DropDownList("ID_MEDIDA_PACKAGE", null, "Portioned Size", htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+    </div><div class="row">
+
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.Label("Unit / Weight")
+            @Html.EditorFor(model => model.UNIT_WEIGHT, new { htmlAttributes = new { placeholder = "Unit Weight", @class = "form-control" } })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.Label("Portioned By")
+            @Html.DropDownList("ID_MEDIDA_PACKAGE", null, "Portioned By", htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+</div>
+
+    <div class="form-group">
+        @Html.Label("Product Price")
+
+        @Html.EditorFor(model => model.PRICE, new { htmlAttributes = new { placeholder = "Price $", @class = "form-control col-md-10" } })
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group">
+                <div class="modal-footer">
+                    <a class="btn btn-secondary" href="@Url.Action("Index","Insumo")">Close</a>
+                    <input type="submit" name="submitButton" value="Save and Create" />
+                    <input type="submit" name="submitButton" value="Save" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="form-group" style="display:none;">
+        @Html.CheckBox("IS_PACKAGE", Model.IS_PACKAGE)
+        @*<input type="checkbox" value="@Model.IS_PACKAGE" checked="@Model.IS_PACKAGE" name="IS_PACKAGE" id="IS_PACKAGE" />*@ <span>IS PACKAGE</span>
+
+    </div>
+    @if (Convert.ToBoolean(Model.IS_PACKAGE))
+    {
+        <div id="isPackageSupplie">
+            <div class="form-group">
+                @Html.EditorFor(model => model.QUANTITY_PACKAGE, new { htmlAttributes = new { placeholder = "Quantity per Package", @class = "form-control" } })
+
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <div id="isPackageSupplie" style="display:none;">
+            <div class="form-group">
+                @Html.EditorFor(model => model.QUANTITY_PACKAGE, new { htmlAttributes = new { placeholder = "Quantity per Package", @class = "form-control" } })
+
+            </div>
+
+        </div>
+
+    }
+
+
+</div>
+}
+
+
+@section scripts
+
+    {
+
+    <script language="javascript" type="text/javascript">
+
+        $(document).ready(function () {
+            $('#IS_PACKAGE').change(function () {
+                $('#isPackageSupplie').toggle(this.checked);
+            }).change(); //ensure visible state matches initially
+            $('#IS_BOX').change(function () {
+
+                $('#isBoxSupplie').toggle(this.checked);
+            }).change();
+        });
+    </script>
+}

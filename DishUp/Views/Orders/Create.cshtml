@@ -1,0 +1,94 @@
+﻿@model DishUp.ORDER
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.IS_DRAFT)
+
+    <div class="form-horizontal">
+        <h4>NEW ORDER</h4>
+        <hr />
+        @Html.HiddenFor(x=>x.ID_ORDER)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("SUPPLIER", htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.DropDownList("ID_SUPPLIER", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.ID_SUPPLIER, "", new { @class = "text-danger" })
+            </div>
+            @Html.Label("DATE", htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.ORDER_DATE, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.ValidationMessageFor(model => model.ORDER_DATE, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.DELIVERED, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-2">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.DELIVERED)
+                    @Html.ValidationMessageFor(model => model.DELIVERED, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-2">
+                <input type="submit" value="Place Order" class="btn btn-default" />
+
+            </div>
+        </div>
+        <div class="form-group">
+            <h4> @Html.Label("ADD ITEMS TO THE ORDER", htmlAttributes: new { @class = "control-label col-md-7" })</h4>
+
+        </div>
+
+
+        <hr />
+ 
+    </div>
+}
+
+    <div id="formuSupplie">
+        @using (Ajax.BeginForm("AddSupplies", "Orders", new AjaxOptions
+        {
+            UpdateTargetId = "supplieList",
+            HttpMethod = "POST",
+            InsertionMode = InsertionMode.Replace
+
+        }, new { @class = "form-horizontal" }))
+        {
+            @Html.HiddenFor(o => o.ID_SUPPLIER)
+            @Html.HiddenFor(model => model.ID_ORDER)
+            <div class="form-group">
+                @Html.Label("Supplie", htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-3">
+                    @Html.DropDownList("ID_SUPPLIER_INSUMO", null, htmlAttributes: new { @class = "form-control" })
+
+                </div>
+                @Html.Label("Quantity", htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-3">
+                    @Html.Editor("quantity", "Insert Quantity", new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-4">
+                    <button id="ff" type="submit" name="ff" class="btn btn-success">Aceptar</button>
+
+                </div>
+            </div>
+          
+        }
+
+    </div>
+
+<div id="supplieList">
+    @Html.Action("GetSuppliesList", "Orders", new { id = Model.ID_ORDER })
+
+</div>
+@Html.Hidden("urlSupplier", Url.Action("GetSupplier", "JSON"))
+@Html.Hidden("urlSupplierSupplie", Url.Action("GetSupplierSupplie", "JSON", new { ID = Model.ID_SUPPLIER }))
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script src="~/Scripts/Order.js"></script>
