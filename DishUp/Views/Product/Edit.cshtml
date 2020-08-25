@@ -44,7 +44,7 @@
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                         @Html.HiddenFor(model => model.ID_PRODUCTO)
 
-                                        <div class="form-group" >
+                                        <div class="form-group">
                                             <div class="row" style="background-color:red;">
                                                 <div class="col-lg-2">
                                                     @*<img src="@Model.IMAGEN" width="50" height="50" alt="Alternate Text" />*@
@@ -192,7 +192,10 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-<script type="text/javascript">
+
+@section scripts {
+
+    <script type="text/javascript">
     function createUploader() {
 
          var uploader = new qq.FineUploader({
@@ -242,8 +245,12 @@
         form.reset();
     }
     window.onload = createUploader;
-</script>
-<script>
-    $(".iconEdit").prepend("<span class=\"glyphicon glyphicon-pencil\"></span>&nbsp;");
-    $(".iconDelete").prepend("<span class=\"glyphicon glyphicon-remove\"></span>&nbsp;");
-</script>
+    </script>
+    <script>
+        $(".iconEdit").prepend("<span class=\"glyphicon glyphicon-pencil\"></span>&nbsp;");
+        $(".iconDelete").prepend("<span class=\"glyphicon glyphicon-remove\"></span>&nbsp;");
+    </script>
+
+}
+
+

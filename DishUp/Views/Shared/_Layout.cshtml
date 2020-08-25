@@ -470,7 +470,7 @@
                     @RenderBody()
 
 
-                    <footer>
+                    <footer style="margin-top:7%">
                         <p>&copy; @DateTime.Now.Year - DishUp</p>
                     </footer>
                 </div>
@@ -479,9 +479,10 @@
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts")
+
     <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 
-    @RenderSection("scripts", required: false)
 </body>
 </html>
 

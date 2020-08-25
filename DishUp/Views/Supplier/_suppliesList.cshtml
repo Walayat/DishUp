@@ -3,7 +3,7 @@
 
 <div class="d-sm-flex align-items-center justify-content-between ">
     <h1 class="h3 mb-0 text-gray-800">Supplier Products</h1>
-    <a href="@Url.Action("Supplier","Supplier")" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Back to Supplier List</a>
+    <a href="@Url.Action("Suppliers","Supplier")" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Back to Supplier List</a>
 
 </div>
 <br />
@@ -52,7 +52,14 @@
                     @Html.ActionLink("Edit", "EditSupplie", new { id = item.ID_SUPPLIER_INSUMO }, new { @class = "btn btn-primary iconEdit" })
                     @Ajax.ActionLink(" Delete ", "DeleteSupplie", "SUPPLIER", new { id = item.ID_SUPPLIER_INSUMO }, new AjaxOptions { Confirm = "Are you sure you want to delete this item?", HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "supplieList" }, new { @class = "btn btn-danger iconDelete" })
                     @*@Ajax.ActionLink(" Add to My Ingredients ", "AddIngredient", "SUPPLIER", new { id = item.ID_SUPPLIER_INSUMO }, new AjaxOptions { Confirm = "Are you sure you want to add this item to your ingredients?", HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "supplieList" }, new { onclick = "Alerta(" + @item.ID_SUPPLIER_INSUMO + ");", @class = "btn btn-danger iconDelete" })*@
-                    @Ajax.ActionLink(" Add to My Ingredients ", null,null,  new { id = item.ID_SUPPLIER_INSUMO }, new AjaxOptions { Confirm = "Are you sure you want to add this item to your ingredients?", HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "supplieList" }, new { onclick = "AddIngredient(" + @item.ID_SUPPLIER_INSUMO + ");", @class = "btn btn-danger iconDelete" })
+                    @*@Ajax.ActionLink(" Add to My Ingredients ", null,null,  new { id = item.ID_SUPPLIER_INSUMO }, 
+                   new AjaxOptions { Confirm = "Are you sure you want to add this item to your ingredients?", 
+                       HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "supplieList" }, 
+                   new { onclick = "AddIngredient(" + @item.ID_SUPPLIER_INSUMO + ");", @class = "btn btn-danger iconDelete" })*@
+
+                    <button id="@item.ID_SUPPLIER_INSUMO" onclick="AddIngredient(@item.ID_SUPPLIER_INSUMO)" class="btn btn-danger iconDelete">
+                        Add to My Ingredients
+                    </button>
                 </td>
             </tr>
         }

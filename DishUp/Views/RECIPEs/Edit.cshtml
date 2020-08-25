@@ -195,8 +195,11 @@
 }
 <div id="rcpDetail">
 
-        @Html.Action("GetRecipeDetails", new { id = Model.ID_RECIPE })
-    </div>
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
+    @Html.Action("GetRecipeDetails", new { id = Model.ID_RECIPE })
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+@section scripts{}

@@ -11,19 +11,23 @@
             <th>Unit</th>
             <th>Action</th>
         </tr>
-        @foreach (var it in Model.listaInsumos)
+        @if (!(Model.listaInsumos == null))
         {
-            <tr>
-                <td>@it.INSUMO.NOMBRE</td>
-                <td>@it.quantity</td>
-                <td>@it.MEDIDA.NOMBRE</td>
-                <td>
-                    @Ajax.ActionLink("Edit ", "EditProductSupplie", "PRODUCT", new { id = it.ID_PRODUCTO_INSUMO, idInsumo = it.ID_INSUMO }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "supplieDetail", OnComplete = "$('#myModalSupplie').modal('show')" }, new { @class = "btn btn-primary iconEdit" })
+            foreach (var it in Model.listaInsumos)
+            {
+                <tr>
+                    <td>@it.PRODUCTO.NOMBRE</td>
+                    <td>@it.quantity</td>
+                    <td>@it.MEDIDA.NOMBRE</td>
+                    <td>
+                        @Ajax.ActionLink("Edit ", "EditProductSupplie", "PRODUCT", new { id = it.ID_PRODUCTO_INSUMO, idInsumo = it.ID_INSUMO }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "supplieDetail", OnComplete = "$('#myModalSupplie').modal('show')" }, new { @class = "btn btn-primary iconEdit" })
 
-                    @Ajax.ActionLink("Delete", "DeleteProductSupplie", "PRODUCT", new { id = it.ID_PRODUCTO_INSUMO }, new AjaxOptions { Confirm = "Are you sure you want to delete this item?", HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "supplieList" }, new { @class = "btn btn-danger iconDelete" })
-                </td>
-            </tr>
+                        @Ajax.ActionLink("Delete", "DeleteProductSupplie", "PRODUCT", new { id = it.ID_PRODUCTO_INSUMO }, new AjaxOptions { Confirm = "Are you sure you want to delete this item?", HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "supplieList" }, new { @class = "btn btn-danger iconDelete" })
+                    </td>
+                </tr>
+            }
         }
+
     </table>
 }
 

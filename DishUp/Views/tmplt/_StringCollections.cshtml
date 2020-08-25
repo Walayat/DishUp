@@ -1,13 +1,13 @@
 ﻿@model ICollection<string>
 
 
-@* 
-    
-    Call from main view:
-@{
-    ViewBag.ListDescription = “Skills:”;
-    Html.RenderPartial(“_StringCollection”, Model.Skills);
-}
+@*
+
+        Call from main view:
+    @{
+        ViewBag.ListDescription = “Skills:”;
+        Html.RenderPartial(“_StringCollection”, Model.Skills);
+    }
 
 *@
 <div>
@@ -19,3 +19,6 @@
         }
     </p>
 </div>
+
+
+@section scripts{}

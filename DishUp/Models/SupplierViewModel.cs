@@ -18,7 +18,7 @@ namespace DishUp.Models
         public string MOBILE_NUMBER { get; set; }
         public string PHONE_NUMBER { get; set; }
         public string ABN_NUMBER { get; set; }
-        [Required(ErrorMessage = "Please enter an ACN Number")]
+        //[Required(ErrorMessage = "Please enter an ACN Number")]
         public string ACN_NUMBER { get; set; }
         [Required(ErrorMessage = "Please enter the email Address")]
         public string EMAIL { get; set; }

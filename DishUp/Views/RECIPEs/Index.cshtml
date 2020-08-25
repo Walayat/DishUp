@@ -62,62 +62,66 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.YIELD)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PORTION_SIZE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PORTION_NUMBER)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PRICE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PREP_TIME)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.COOK_TIME)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SHELF_LIFE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IMAGEN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NAME)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ACTIVE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MEDIDA.NOMBRE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MEDIDA1.NOMBRE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CATEGORY.ID_CATEGORY)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CATEGORY1.ID_CATEGORY)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CATEGORY2.ID_CATEGORY)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CATEGORY3.ID_CATEGORY)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_RECIPE }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID_RECIPE }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_RECIPE })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.YIELD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PORTION_SIZE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PORTION_NUMBER)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PRICE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PREP_TIME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COOK_TIME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SHELF_LIFE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IMAGEN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ACTIVE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MEDIDA.NOMBRE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MEDIDA1.NOMBRE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CATEGORY.ID_CATEGORY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CATEGORY1.ID_CATEGORY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CATEGORY2.ID_CATEGORY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CATEGORY3.ID_CATEGORY)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID_RECIPE }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID_RECIPE }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID_RECIPE })
+            </td>
+        </tr>
+    }
 
 </table>
+
+
+@section scripts{}

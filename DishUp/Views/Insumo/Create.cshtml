@@ -3,166 +3,178 @@
 @{
     ViewBag.Title = "Create";
 }
+<!--Page Style Section-->
+<link href="~/Content/select2.min.css" rel="stylesheet" />
+<link href="~/Content/Custom.css" rel="stylesheet" />
 
-<h2>Create</h2>
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-<div class="form-horizontal">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.Label("SUPPLIER")
-
-                @Html.DropDownList("ID_USER_SUPPLIER", null, "Select Supplier", htmlAttributes: new { @class = "form-control" })
-            </div>
-        </div>
-
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.Label("Product Name")
-                @Html.EditorFor(model => model.NAME, new { htmlAttributes = new { @name = "NAME", placeholder = "Product Name", @class = "form-control" } })
-
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                @Html.Label("Code")
-
-                @Html.EditorFor(model => model.CODE, new { htmlAttributes = new { placeholder = "Code", @class = "form-control" } })
-
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Create</h3>
             </div>
 
 
-        </div>
-    </div>
+            @using (Html.BeginForm("Create", "Insumo", FormMethod.Post, new { @class = "needs-validation", @novalidate = "novalidate" }))
+            {
+                @Html.AntiForgeryToken()
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <div>
-                    @Html.CheckBox("IS_BOX", Model.IS_BOX)
-                    <label for="IS_BOX">Does it contain multiple items?</label>
+                <div class="box-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.Label("SUPPLIER")
+                                @Html.DropDownList("ID_USER_SUPPLIER", null, "Select Supplier", htmlAttributes: new { @class = "form-control select2", @id = "insuSupplier", @required = "required" })
+                                <div class="invalid-feedback">
+                                    Please choose supplier.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.Label("Product Name")
+                                @Html.EditorFor(model => model.NAME, new { htmlAttributes = new { @name = "NAME", placeholder = "Product Name", @class = "form-control" } })
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.Label("Code")
+
+                                @Html.EditorFor(model => model.CODE, new { htmlAttributes = new { placeholder = "Code", @class = "form-control" } })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group" id="isBoxCheckBox">
+                                @Html.CheckBox("IS_BOX", Model.IS_BOX)
+                                <label for="IS_BOX">Does it contain multiple items?</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    @*<div id="isBoxSupplie" style="display:none;">
+                    <div class="row">
+
+
+                        <div class="col-md-6">
+                            <div class="form-group" style="display:none;">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.Label("Quantity")
+
+                                @Html.EditorFor(model => model.QUANTITY, new { htmlAttributes = new { placeholder = "Quantity", @class = "form-control" } })
+
+                            </div>
+                        </div>
+                        <div class="col-md-6" id="isBoxSupplie" style=" display: none;">
+                            <div class="form-group">
+                                @Html.Label("Quantity per box")
+                                @Html.EditorFor(model => model.QUANTITY_BOX, new { htmlAttributes = new { placeholder = "Quantity per Box", @class = "form-control" } })
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="display:none;">
+                            <div class="form-group">
+                                @Html.Label("Portion Size")
+
+                                @Html.DropDownList("ID_CUSTOM_UNIT", null, "Portioned Size", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.Label("Unit / Weight")
+                                @Html.EditorFor(model => model.UNIT_WEIGHT, new { htmlAttributes = new { placeholder = "Unit Weight", @class = "form-control" } })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.Label("Portioned By")
+                                @Html.DropDownList("ID_MEDIDA_PACKAGE", null, "Portioned By", htmlAttributes: new { @class = "form-control select2" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.Label("Product Price")
+                                @Html.EditorFor(model => model.PRICE, new { htmlAttributes = new { placeholder = "Price $", @class = "form-control" } })
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <div class="modal-footer">
+                                    <a class="btn btn-secondary" href="@Url.Action("Index","Insumo")">Close</a>
+                                    <input type="submit" class="btn btn-success" name="submitButton" value="Save and Create" />
+                                    <input type="submit" class="btn btn-success" name="submitButton" value="Save" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="display:none;">
+                        @Html.CheckBox("IS_PACKAGE", Model.IS_PACKAGE)
+                        @*<input type="checkbox" value="@Model.IS_PACKAGE" checked="@Model.IS_PACKAGE" name="IS_PACKAGE" id="IS_PACKAGE" />*@ <span>IS PACKAGE</span>
+
+                    </div>
+                    @if (Convert.ToBoolean(Model.IS_PACKAGE))
+                    {
+                        <div id="isPackageSupplie">
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.QUANTITY_PACKAGE, new { htmlAttributes = new { placeholder = "Quantity per Package", @class = "form-control" } })
+
+                            </div>
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="isPackageSupplie" style="display:none;">
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.QUANTITY_PACKAGE, new { htmlAttributes = new { placeholder = "Quantity per Package", @class = "form-control" } })
+
+                            </div>
+
+                        </div>
+
+                    }
+
                 </div>
-                @*@Html.CheckBox("IS_BOX", Model.IS_BOX)*@
-
-            </div>
+            }
         </div>
     </div>
-
-    <div id="isBoxSupplie" style="display:none;">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    @Html.Label("Quantity per box")
-                    @Html.EditorFor(model => model.QUANTITY_BOX, new { htmlAttributes = new { placeholder = "Quantity per Box", @class = "form-control" } })
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group" style="display:none;">
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.Label("Quantity")
-
-                @Html.EditorFor(model => model.QUANTITY, new { htmlAttributes = new { placeholder = "Quantity", @class = "form-control" } })
-
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group" style="display:none;">
-                @Html.Label("Portion Size")
-
-                @Html.DropDownList("ID_CUSTOM_UNIT", null, "Portioned Size", htmlAttributes: new { @class = "form-control" })
-            </div>
-        </div>
-    </div>
-    <div class="row">
-
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.Label("Unit / Weight")
-                @Html.EditorFor(model => model.UNIT_WEIGHT, new { htmlAttributes = new { placeholder = "Unit Weight", @class = "form-control" } })
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.Label("Portioned By")
-                @Html.DropDownList("ID_MEDIDA_PACKAGE", null, "Portioned By", htmlAttributes: new { @class = "form-control" })
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.Label("Product Price")
-
-        @Html.EditorFor(model => model.PRICE, new { htmlAttributes = new { placeholder = "Price $", @class = "form-control col-md-10" } })
-
-    </div>
-
-    <div class="row">
-        <div class="col-md-10">
-            <div class="form-group">
-                <div class="modal-footer">
-                    <a class="btn btn-secondary" href="@Url.Action("Index","Insumo")">Close</a>
-                    <input type="submit" name="submitButton" value="Save and Create" />
-                    <input type="submit" name="submitButton" value="Save" />
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group" style="display:none;">
-        @Html.CheckBox("IS_PACKAGE", Model.IS_PACKAGE)
-        @*<input type="checkbox" value="@Model.IS_PACKAGE" checked="@Model.IS_PACKAGE" name="IS_PACKAGE" id="IS_PACKAGE" />*@ <span>IS PACKAGE</span>
-
-    </div>
-    @if (Convert.ToBoolean(Model.IS_PACKAGE))
-    {
-        <div id="isPackageSupplie">
-            <div class="form-group">
-                @Html.EditorFor(model => model.QUANTITY_PACKAGE, new { htmlAttributes = new { placeholder = "Quantity per Package", @class = "form-control" } })
-
-            </div>
-
-        </div>
-    }
-    else
-    {
-        <div id="isPackageSupplie" style="display:none;">
-            <div class="form-group">
-                @Html.EditorFor(model => model.QUANTITY_PACKAGE, new { htmlAttributes = new { placeholder = "Quantity per Package", @class = "form-control" } })
-
-            </div>
-
-        </div>
-
-    }
-
-
 </div>
-}
+
+
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 @section Scripts {
-
+    <script src="~/Scripts/select2.min.js"></script>
     @Scripts.Render("~/bundles/jqueryval")
 
     <script>
@@ -181,6 +193,8 @@
             }
         }
         $(document).ready(function () {
+            $('.select2').select2();
+
             $('#IS_PACKAGE').change(function () {
                 $('#isPackageSupplie').toggle(this.checked);
             }).change(); //ensure visible state matches initially
@@ -188,7 +202,28 @@
 
                 $('#isBoxSupplie').toggle(this.checked);
             }).change();
+
+
+
+            $(function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            });
         });
+
     </script>
 
 }

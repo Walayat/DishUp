@@ -73,7 +73,7 @@
             @Html.DisplayFor(model => model.OPEN_HOURS)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.DELIVERY_DAYS   )
+            @Html.DisplayNameFor(model => model.DELIVERY_DAYS)
         </dt>
 
         <dd>
@@ -83,6 +83,8 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_SUPPLIER },new {@class="btn btn-primary" }) |
-    @Html.ActionLink("Back to Supplier List", "Index","",new {@class="btn btn-default" })
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_SUPPLIER }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Back to Supplier List", "Index", "", new { @class = "btn btn-default" })
 </p>
+
+@section scripts{}

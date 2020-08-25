@@ -12,10 +12,10 @@
 <table class="table" id="packagingSupplies" data-paging="true" data-filtering="true" data-sorting="true" data-state="true">
     <tr>
         <th>
-          SUPPLIE
+            SUPPLIE
         </th>
         <th>
-       PACKAGING
+            PACKAGING
         </th>
         <th>
             @Html.DisplayNameFor(model => model.QUANTITY)
@@ -24,7 +24,7 @@
             MIN PERSONS
         </th>
         <th>
-           MAX PERSONS
+            MAX PERSONS
         </th>
 
 
@@ -32,41 +32,44 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
+    @foreach (var item in Model)
+    {
+        <tr>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.INSUMO.NOMBRE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PACKAGING.NAME)
+            <td>
+                @Html.DisplayFor(modelItem => item.INSUMO.NOMBRE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PACKAGING.NAME)
 
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.QUANTITY) @if (item.INSUMO.MEDIDA != null)
-            {@item.INSUMO.MEDIDA.NOMBRE;
-        }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.minPerson)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.maxPerson)
-        </td>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QUANTITY) @if (item.INSUMO.MEDIDA != null)
+                {@item.INSUMO.MEDIDA.NOMBRE;
+            }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.minPerson)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.maxPerson)
+            </td>
 
 
 
-        <td>
-            <a href="@Url.Action("Edit", "PackagingSupplies",new { id = item.ID_INSUMO_PACKAGING })" class="btn btn-primary">
-                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                Edit
-            </a>
-            <a href="@Url.Action("Delete", "PackagingSupplies",new { id = item.ID_INSUMO_PACKAGING})" class="btn btn-danger">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                Delete
-            </a>
-        </td>
-    </tr>
-}
+            <td>
+                <a href="@Url.Action("Edit", "PackagingSupplies",new { id = item.ID_INSUMO_PACKAGING })" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    Edit
+                </a>
+                <a href="@Url.Action("Delete", "PackagingSupplies",new { id = item.ID_INSUMO_PACKAGING})" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    Delete
+                </a>
+            </td>
+        </tr>
+    }
 
 </table>
+
+@section scripts{}

@@ -13,7 +13,7 @@
     <div class="form-horizontal">
         <h4>NEW ORDER</h4>
         <hr />
-        @Html.HiddenFor(x=>x.ID_ORDER)
+        @Html.HiddenFor(x => x.ID_ORDER)
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.Label("SUPPLIER", htmlAttributes: new { @class = "control-label col-md-1" })
@@ -45,41 +45,41 @@
 
 
         <hr />
- 
+
     </div>
 }
 
-    <div id="formuSupplie">
-        @using (Ajax.BeginForm("AddSupplies", "Orders", new AjaxOptions
-        {
-            UpdateTargetId = "supplieList",
-            HttpMethod = "POST",
-            InsertionMode = InsertionMode.Replace
+<div id="formuSupplie">
+    @using (Ajax.BeginForm("AddSupplies", "Orders", new AjaxOptions
+    {
+        UpdateTargetId = "supplieList",
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace
 
-        }, new { @class = "form-horizontal" }))
-        {
-            @Html.HiddenFor(o => o.ID_SUPPLIER)
-            @Html.HiddenFor(model => model.ID_ORDER)
-            <div class="form-group">
-                @Html.Label("Supplie", htmlAttributes: new { @class = "control-label col-md-1" })
-                <div class="col-md-3">
-                    @Html.DropDownList("ID_SUPPLIER_INSUMO", null, htmlAttributes: new { @class = "form-control" })
+    }, new { @class = "form-horizontal" }))
+    {
+        @Html.HiddenFor(o => o.ID_SUPPLIER)
+        @Html.HiddenFor(model => model.ID_ORDER)
+        <div class="form-group">
+            @Html.Label("Supplie", htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.DropDownList("ID_SUPPLIER_INSUMO", null, htmlAttributes: new { @class = "form-control" })
 
-                </div>
-                @Html.Label("Quantity", htmlAttributes: new { @class = "control-label col-md-1" })
-                <div class="col-md-3">
-                    @Html.Editor("quantity", "Insert Quantity", new { @class = "form-control" })
-                </div>
-
-                <div class="col-md-4">
-                    <button id="ff" type="submit" name="ff" class="btn btn-success">Aceptar</button>
-
-                </div>
             </div>
-          
-        }
+            @Html.Label("Quantity", htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.Editor("quantity", "Insert Quantity", new { @class = "form-control" })
+            </div>
 
-    </div>
+            <div class="col-md-4">
+                <button id="ff" type="submit" name="ff" class="btn btn-success">Aceptar</button>
+
+            </div>
+        </div>
+
+    }
+
+</div>
 
 <div id="supplieList">
     @Html.Action("GetSuppliesList", "Orders", new { id = Model.ID_ORDER })
@@ -92,3 +92,6 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 <script src="~/Scripts/Order.js"></script>
+
+
+@section scripts{}

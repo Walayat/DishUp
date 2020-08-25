@@ -6,7 +6,7 @@
 
 <script src="~/Scripts/Supplier.js"></script>
 <p>
-    <h2>@Html.ActionLink("Add Supplier", "Create", "Supplier", new { i =  0 }, new { @class = "btn btn-success" })</h2>
+    <h2>@Html.ActionLink("Add Supplier", "Create", "Supplier", new { i = 0 }, new { @class = "btn btn-success" })</h2>
 </p>
 
 
@@ -71,9 +71,9 @@
                     Edit
                 </a>
                 @*<a href="@Url.Action("Create", "Orders",new { id = item.ID_SUPPLIER })" class="btn btn-warning">
-                    <span class="gl   yphicon glyphicon-bookmark" aria-hidden="true"></span>
-                    Make an order
-                </a>*@
+                        <span class="gl   yphicon glyphicon-bookmark" aria-hidden="true"></span>
+                        Make an order
+                    </a>*@
                 <a href="#" onclick="AddSupplierToUser(@item.ID_SUPPLIER)" class="btn btn-info">
                     <span class="glyphicon glyphicon-add" aria-hidden="true"></span>
                     Add to My Suppliers
@@ -85,7 +85,7 @@
 
 </table>
 
-
+@section scripts{}
 
 
 

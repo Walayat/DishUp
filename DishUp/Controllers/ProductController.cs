@@ -187,7 +187,7 @@ namespace DishUp.Controllers
         {
             supplieListViewModel listaInsumoVM = new supplieListViewModel
             {
-                listaInsumos = db.PRODUCTO_INSUMO.Include(x => x.INSUMO).Include(x => x.MEDIDA).Where(x => x.ID_PRODUCTO == ID_PRODUCTO && x.ACTIVE == true).ToList()
+                listaInsumos = db.PRODUCTO_INSUMO.Include(x => x.PRODUCTO).Include(x => x.MEDIDA).Where(x => x.ID_PRODUCTO == ID_PRODUCTO && x.ACTIVE == true).ToList()
             };
 
             listaInsumoVM.costoTotal = 0;
@@ -198,41 +198,51 @@ namespace DishUp.Controllers
                 USER_SUPPLIER_INSUMO ins = db.USER_SUPPLIER_INSUMO.Where(x => x.ID_USER_SUPPLIER_INSUMO== idInsumo).FirstOrDefault();
                 decimal? costo = 0;
 
-                if (ins.ID_MEDIDA_PACKAGE == 1) //KILO
+                if (ins.ID_MEDIDA_PACKAGE == 6) //KILO
                 {
-                    if (prod.ID_MEDIDA == 1) //KILO
+                    if (prod.quantity is null)
+                    {
+                        costo = ins.INDIVIDUAL_PRICE;
+                    }
+                    else
+                    {
+                        costo = ins.INDIVIDUAL_PRICE * Convert.ToDecimal(prod.quantity);
+                    }
+                }
+
+                else if (ins.ID_MEDIDA_PACKAGE == 5) // GRAMOS
+                {
+                    decimal? costoperGR = ins.PRICE / 1000;
+                    if (!(prod.quantity is null))
+                    {
+                        costo = costoperGR * prod.quantity;
+                    }
+                }
+
+                else if (ins.ID_MEDIDA_PACKAGE == 4) //LITRO
+                {
+                    if (!(prod.quantity is null))
                     {
                         costo = ins.PRICE * Convert.ToDecimal(prod.quantity);
-
                     }
-                    if (prod.ID_MEDIDA == 2) // GRAMOS
+                    else
                     {
-                        decimal? costoperGR = ins.PRICE / 1000;
-                        costo = costoperGR * prod.quantity;
+                        costo = ins.PRICE;
                     }
                 }
 
-                if (ins.ID_MEDIDA_PACKAGE == 5) //LITRO
+                else if (ins.ID_MEDIDA_PACKAGE == 3) //ML
                 {
-                    if (prod.ID_MEDIDA == 5) //LITRO
-                    {
-                        costo = ins.PRICE* Convert.ToDecimal(prod.quantity);
-
-                    }
-                    if (prod.ID_MEDIDA == 6) // ML
-                    {
-                        decimal? costoperGR = ins.PRICE / 1000;
-                        costo = costoperGR * prod.quantity;
-                    }
+                    decimal? costoperGR = ins.PRICE / 1000;
+                    costo = costoperGR * prod.quantity;
                 }
-                if (ins.ID_MEDIDA_PACKAGE== 3) //PACKAGE
+
+                else if (ins.ID_MEDIDA_PACKAGE == 1) //UNIT
                 {
                     costo = ins.INDIVIDUAL_PRICE * prod.quantity;
                 }
-                if (ins.ID_MEDIDA_PACKAGE == 7) //UNIT
-                {
-                    costo = ins.INDIVIDUAL_PRICE * prod.quantity;
-                }
+
+                
                 listaInsumoVM.costoTotal += costo;
 
             }
@@ -253,41 +263,33 @@ namespace DishUp.Controllers
                 USER_SUPPLIER_INSUMO ins = db.USER_SUPPLIER_INSUMO.Where(x => x.ID_USER_SUPPLIER_INSUMO== idInsumo).FirstOrDefault();
                 decimal? costo = 0;
 
-                if (ins.ID_MEDIDA_PACKAGE == 1) //KILO
+                if (ins.ID_MEDIDA_PACKAGE == 6) //KILO
                 {
-                    if (prod.ID_MEDIDA == 1) //KILO
-                    {
-                        costo = ins.PRICE * Convert.ToDecimal(prod.quantity);
-
-                    }
-                    if (prod.ID_MEDIDA == 2) // GRAMOS
-                    {
-                        decimal? costoperGR = ins.PRICE / 1000;
-                        costo = costoperGR * prod.quantity;
-                    }
+                    costo = ins.INDIVIDUAL_PRICE * Convert.ToDecimal(prod.quantity);
                 }
 
-                if (ins.ID_MEDIDA_PACKAGE == 5) //LITRO
+                else if (ins.ID_MEDIDA_PACKAGE == 5) // GRAMOS
                 {
-                    if (prod.ID_MEDIDA == 5) //LITRO
-                    {
-                        costo = ins.PRICE * Convert.ToDecimal(prod.quantity);
-
-                    }
-                    if (prod.ID_MEDIDA == 6) // ML
-                    {
-                        decimal? costoperGR = ins.PRICE / 1000;
-                        costo = costoperGR * prod.quantity;
-                    }
+                    decimal? costoperGR = ins.PRICE / 1000;
+                    costo = costoperGR * prod.quantity;
                 }
-                if (ins.ID_MEDIDA_PACKAGE == 3) //PACKAGE
+
+                else if (ins.ID_MEDIDA_PACKAGE == 4) //LITRO
+                {
+                    costo = ins.PRICE * Convert.ToDecimal(prod.quantity);
+                }
+
+                else if (ins.ID_MEDIDA_PACKAGE == 3) //ML
+                {
+                    decimal? costoperGR = ins.PRICE / 1000;
+                    costo = costoperGR * prod.quantity;
+                }
+
+                else if (ins.ID_MEDIDA_PACKAGE == 1) //UNIT
                 {
                     costo = ins.INDIVIDUAL_PRICE * prod.quantity;
                 }
-                if (ins.ID_MEDIDA_PACKAGE == 7) //UNIT
-                {
-                    costo = ins.INDIVIDUAL_PRICE * prod.quantity;
-                }
+
                 listaInsumoVM.costoTotal += costo;
 
             }

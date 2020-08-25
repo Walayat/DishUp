@@ -2,22 +2,22 @@
 
 @{
     ViewBag.Title = "Edit";
-
-
+    var ID_SUPPLIER = Model.ID_SUPPLIER;
 }
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" important crossorigin="anonymous">
 <script src="~/Scripts/Supplier.js"></script>
+
 <div id="divShow" style="display:none">
     <strong><span id="Title"></span></strong><span id="dtMessage"></span>
 </div>
+
 <div class="card">
     <div class="card-header ">
         <ul class="nav nav-pills card-header-pills" id="cardPill" role="tablist">
             <li class="nav-item"><a class="nav-link active" id="overview-pill" href="#overviewPill" data-toggle="tab" role="tab" aria-controls="overview" aria-selected="true">Supplier Details</a></li>
             <li class="nav-item"><a class="nav-link" id="example-pill" href="#supplieList" data-toggle="tab" role="tab" aria-controls="example" aria-selected="false">Products</a></li>
         </ul>
-
-
     </div>
     <div class="card-body">
         <div class="tab-content" id="cardPillContent">
@@ -26,100 +26,112 @@
 
                     <div class="d-sm-flex align-items-center justify-content-between ">
                         <h1 class="h3 mb-0 text-gray-800">Edit Supplier</h1>
-                        <a href="@Url.Action("Index","Supplier")" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Back to Supplier List</a>
-
+                        <a href="@Url.Action("Suppliers","Supplier")" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Back to Supplier List</a>
                     </div>
 
                     <div class="row">
                         <div class="col-md-12">
-                            @using (Html.BeginForm())
+                            @using (Html.BeginForm("Edit", "Supplier", FormMethod.Post, new { @class = "needs-validation", @novalidate = "novalidate" }))
                             {
                                 @Html.AntiForgeryToken()
 
 
-                            <div class="form-horizontal">
-                                <h4>SUPPLIER</h4>
-                                @Html.HiddenFor(x => x.IS_FROM_USER)
-                                <hr />
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                <div class="form-group">
-                                    @Html.Label("Company Name", htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.NAME, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.NAME, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
+                                <div class="form-horizontal">
+                                    @Html.HiddenFor(x => x.IS_FROM_USER)
+                                    @Html.HiddenFor(x=>x.ID_SUPPLIER)
+                                    <hr />
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                                <div class="form-group">
-                                    @Html.Label("Rep. Name", htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.SURNAME, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.SURNAME, "", new { @class = "text-danger" })
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @Html.Label("Company Name", htmlAttributes: new { @class = "control-label" })
+                                                @Html.EditorFor(model => model.NAME, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                                @*@Html.ValidationMessageFor(model => model.NAME, "", new { @class = "text-danger" })*@
+                                                <div class="invalid-feedback">
+                                                    Please choose company name.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @Html.Label("Rep. Name", htmlAttributes: new { @class = "control-label" })
+                                                @Html.EditorFor(model => model.SURNAME, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                                @*@Html.ValidationMessageFor(model => model.SURNAME, "", new { @class = "text-danger" })*@
+                                                <div class="invalid-feedback">
+                                                    Please provide surname.
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.Label("Landline Number", htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.MOBILE_NUMBER, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.MOBILE_NUMBER, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.Label("Mobile Number", htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.PHONE_NUMBER, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.PHONE_NUMBER, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="form-group" style="display:none;">
-                                    @Html.LabelFor(model => model.ABN_NUMBER, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.ABN_NUMBER, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.ABN_NUMBER, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="form-group" style="display:none">
-                                    @Html.LabelFor(model => model.ACN_NUMBER, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.ACN_NUMBER, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.ACN_NUMBER, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.EMAIL, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="form-group" style="display:none;">
-                                    @Html.LabelFor(model => model.OPEN_HOURS, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.OPEN_HOURS, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.OPEN_HOURS, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    @Html.Label("Delivery Days", htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.DELIVERY_DAYS, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.DELIVERY_DAYS, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
 
 
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @Html.Label("Landline Number", htmlAttributes: new { @class = "control-label" })
+                                                @Html.EditorFor(model => model.MOBILE_NUMBER, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.MOBILE_NUMBER, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @Html.Label("Mobile Number", htmlAttributes: new { @class = "control-label" })
+                                                @Html.EditorFor(model => model.PHONE_NUMBER, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.PHONE_NUMBER, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.EMAIL, htmlAttributes: new { @class = "control-label" })
+                                                @Html.EditorFor(model => model.EMAIL, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                                @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
+                                                <div class="invalid-feedback">
+                                                    Please provide email.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @Html.Label("Delivery Days", htmlAttributes: new { @class = "control-label" })
+                                                @Html.EditorFor(model => model.DELIVERY_DAYS, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.DELIVERY_DAYS, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group" style="display:none;">
+                                        @Html.LabelFor(model => model.ABN_NUMBER, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.ABN_NUMBER, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.ABN_NUMBER, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="display:none">
+                                        @Html.LabelFor(model => model.ACN_NUMBER, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.ACN_NUMBER, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.ACN_NUMBER, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="display:none;">
+                                        @Html.LabelFor(model => model.OPEN_HOURS, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.OPEN_HOURS, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.OPEN_HOURS, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
                                         <input type="submit" value="Add Supplier" class="btn btn-success" />
                                     </div>
                                 </div>
-                            </div>
                             }
                         </div>
 
@@ -128,8 +140,7 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="supplieList" role="tabpanel" aria-labelledby="example-pill">
-                @Html.Action("GetSuppliesList", new { ID_SUPPLIER = Model.ID_SUPPLIER })
-
+                @*@Html.Action("GetSuppliesList", new { ID_SUPPLIER = Model.ID_SUPPLIER })*@
             </div>
         </div>
     </div>
@@ -239,26 +250,101 @@
 
 
 @section scripts {
+
     <script language="javascript" type="text/javascript">
-    $(function () {
-    //ensure visible state matches initially
-    $(".iconEdit").prepend("<span class=\"fa fa-edit\"></span>&nbsp;");
-    $(".iconDelete").prepend("<span class=\"fa fa-trash\"></span>&nbsp;");
-});
+
+
+        $(document).ready(function () {
+            debugger
+            var SupplierId = @ID_SUPPLIER;
+            GetMySuppliesListData(SupplierId);
+        })
+
+        function GetMySuppliesListData(id) {
+            $.ajax({
+                type: "Get",
+                url: "/Supplier/GetSuppliesList",
+                data: { ID_SUPPLIER: id },
+                success: function (data) {
+                    if (data) {
+                        $('#supplieList').html(data);
+                    }
+                },
+
+            });
+        }
+
+        function AddIngredient(id) {
+            var result = confirm("Are you sure you want to add this item to your ingredients?");
+            if (result) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Supplier/AddToMyIngredient", 
+                    data: { ids: id },
+                    success: function (data) {
+                        if (data.success) {
+                            $("#divShow").removeClass();
+                            $("#divShow").css("display", "block");
+                            $("#divShow").addClass(data.CssClassName);
+                            $("#Title").text(data.Title);
+                            $("#dtMessage").text(data.detailMessage);
+                            // do what you want after update or add successfully
+                        } else {
+                            $("#divShow").css("display", "block");
+                            $("#divShow").addClass(data.CssClassName);
+                            $("#Title").text(data.Title);
+
+                            //$("#divShow").css("display", "none");
+                            // do what you want after failure
+                        }
+                    },
+
+                });
+            }
+
+            return false;
+        }
+
+
+        $(function () {
+            //ensure visible state matches initially
+            $(".iconEdit").prepend("<span class=\"fa fa-edit\"></span>&nbsp;");
+            $(".iconDelete").prepend("<span class=\"fa fa-trash\"></span>&nbsp;");
+        });
+
+
+
+        $(function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        });
     </script>
 
 
     <script>
 
-                //function ClearSupplie() {
-                //    //$('#ID_INSUMO').val('');
-                //    $('#modalSupplier').modal('hide');
+            //function ClearSupplie() {
+            //    //$('#ID_INSUMO').val('');
+            //    $('#modalSupplier').modal('hide');
 
-                //    $('#modalNewSupplie').modal('hide');
-                //    var frm = document.getElementById('formAddSupplie');
-                //    frm.reset();  // Reset all form data
-                //    return false;
-                //}
+            //    $('#modalNewSupplie').modal('hide');
+            //    var frm = document.getElementById('formAddSupplie');
+            //    frm.reset();  // Reset all form data
+            //    return false;
+            //}
 
     </script>
 }
